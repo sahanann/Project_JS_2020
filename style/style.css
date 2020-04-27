@@ -1,0 +1,41 @@
+
+
+.tabs {
+    position: absolute;
+    left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    max-width: 640px;
+
+    margin: auto;
+    /* padding: 10px; */
+    background-color: rgb(236, 22, 68);
+    height: 146px;
+    border-radius: 23px;
+}
+
+.tabs button {
+    height: 46px;
+    width: 33.33%;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    float: left;
+    font-size: 17px;
+    color: rgb(255, 255, 255);
+    transition: all 200ms linear;
+}
+
+.tabs button:hover {
+    background-color: rgb(255, 113, 125);
+    color: #000;
+}
+
+#tabs1 {
+    border-radius: 23px 0 0 23px;
+}
+
+#tabs3 {
+    border-radius: 0 23px 23px 0;
+}
