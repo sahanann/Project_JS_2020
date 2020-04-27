@@ -1,0 +1,48 @@
+.choixCours {
+    max-width: 500px;
+    height: 100px;
+    margin-left: auto; 
+    margin-right: auto;
+    margin-top: 60px;
+    background-color:  rgb(236, 22, 68);
+    border-radius: 20px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    /* left: 0; 
+    right: 0; 
+    margin-left: auto; 
+    margin-right: auto; 
+    margin-top: 10px; */
+    text-align: center;
+    padding-top: 20px;
+    -webkit-user-select: none;
+    -ms-user-select: none; 
+    user-select: none;
+    cursor: pointer;
+    transition: all 200ms linear;
+}
+
+.choixCours:hover {
+    background-color:  rgb(255, 73, 73);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.459);
+}
+
+.choixCours:active {
+    background-color:  rgb(216, 7, 42);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.507);
+}
+
+.choixCours label {
+    font-size: 26px;
+    font-weight: 400;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+}
+
+.choixCours img {
+    display: block;
+    margin: auto;
+    width: 40px;
+    height: 26px;
+    cursor: pointer;
+    margin-top: 6px;
+}
