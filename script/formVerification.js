@@ -53,4 +53,12 @@ check["etablInput"] = check["nomInput"];
     document.querySelectorAll(".ftextInput").forEach(item => {
         item.addEventListener("keyup", () => check[item.id](item));
     });
+
+    var choixCours = document.querySelector(".choixCours");
+    choixCours.addEventListener("click", (e) => {
+        choixCours.style.background = "white";
+        document.querySelector(".formPanel").style.height = "100px";
+        document.getElementById("formHolder").style.display = "none";
+        choixCours.style.height = "500px";
+    });
 })();

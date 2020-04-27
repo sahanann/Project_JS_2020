@@ -7,66 +7,83 @@
     <link rel="stylesheet" href="style/style.css">
     <link rel="stylesheet" href="style/formPanel.css">
     <link rel="stylesheet" href="style/checkBox.css">
+    <link rel="stylesheet" href="style/choixCours.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <body>
 
         <div class="tabs">
             <button id="tabs1" class="tablink">Home</button>
             <button id="tabs2" class="tablink">Other</button>
             <button id="tabs3" class="tablink">Something</button>
+
+
+            <form class="formPanel">
+
+                <div id="formHolder">
+                    <div class="fieldGroup">
+                        <label for="emialInput" class="filedName">Email</label>
+                        <input type="text" class="ftextInput" placeholder="Entrez votre email" id="emialInput">
+                        <span id="emialInputErr"></span>
+                    </div>
+        
+                    <div class="fieldGroup">
+                        <label for="nomInput" class="filedName">Nom</label>
+                        <input type="text" class="ftextInput" placeholder="Entrez votre nom" id="nomInput">
+                        <span id="nomInputErr"></span>
+                    </div>
+                    
+                    <div class="fieldGroup">
+                        <label for="prenomInput" class="filedName">Prénom</label>
+                        <input type="text" class="ftextInput" placeholder="Entrez votre prénom" id="prenomInput">
+                        <span id="prenomInputErr"></span>
+                    </div>
+        
+                    <div class="fieldGroup">
+                        <label for="etablInput" class="filedName">Etablissement scolaire</label>
+                        <input type="text" class="ftextInput" placeholder="Entrez votre établissement scolaire" id="etablInput">
+                        <span id="etablInputErr"></span>
+                    </div>
+        
+                    <div class="fieldGroup">
+                        <label class="filedName">Les orientations qui vous intéressent</label>
+                        <div class="checkBoxes">
+                            <label class="container">Informatique de gestion
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+        
+                            <label class="container">Informatique et système : réseaux et télécommunications
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+        
+                            <label class="container">Informatique et système : informatique industrielle
+                                <input type="checkbox">
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        
+                    </div>
+                </div>
+            </form>
+
+
+
+
+            <div class="choixCours">
+                <label>Choix des cours</label>
+                <img src="style/images/Arrow-down-white.png"  alt="Cinque Terre">
+                <!-- <p>&#9661</p> -->
+            </div>
+
         </div>
         
-        <div class="formPanel">
-            
+        
 
+        
 
-            <div class="fieldGroup">
-                <label for="emialInput" class="filedName">Email</label>
-                <input type="text" class="ftextInput" placeholder="Entrez votre email" id="emialInput">
-                <span id="emialInputErr"></span>
-            </div>
-
-            <div class="fieldGroup">
-                <p class="filedName">Nom</p>
-                <input type="text" class="ftextInput" placeholder="Entrez votre nom" id="nomInput">
-                <span id="nomInputErr"></span>
-            </div>
-            
-            <div class="fieldGroup">
-                <p class="filedName">Prénom</p>
-                <input type="text" class="ftextInput" placeholder="Entrez votre prénom" id="prenomInput">
-                <span id="prenomInputErr"></span>
-            </div>
-
-            <div class="fieldGroup">
-                <p class="filedName">Etablissement scolaire</p>
-                <input type="text" class="ftextInput" placeholder="Entrez votre établissement scolaire" id="etablInput">
-                <span id="etablInputErr"></span>
-            </div>
-
-            <div class="fieldGroup">
-                <label class="filedName">Les orientations qui vous intéressent</label>
-                <div class="checkBoxes">
-                    <label class="container">Informatique de gestion
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-
-                    <label class="container">Informatique et système : réseaux et télécommunications
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-
-                    <label class="container">Informatique et système : informatique industrielle
-                        <input type="checkbox">
-                        <span class="checkmark"></span>
-                    </label>
-                </div>
-                
-            </div>
-
-            
-            
-        </div>
+        
 
 
         
