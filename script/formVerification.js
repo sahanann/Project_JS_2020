@@ -55,10 +55,56 @@ check["etablInput"] = check["nomInput"];
     });
 
     var choixCours = document.querySelector(".choixCours");
-    choixCours.addEventListener("click", (e) => {
-        choixCours.style.background = "white";
-        document.querySelector(".formPanel").style.height = "100px";
-        document.getElementById("formHolder").style.display = "none";
-        choixCours.style.height = "500px";
-    });
+    choixCours.addEventListener("click", choixCoursOnClick);
 })();
+
+
+function choixCoursOnClick(e) {
+    document.getElementById("formHolder").style.display = "none";
+    document.getElementById("chxBtnHolder").style.display = "none";
+
+    var choixCours = e.target;
+
+    while (choixCours.className.indexOf('choixCours') == -1) { // Cette boucle permet de remonter jusqu'à la zone de drop parente
+        choixCours = choixCours.parentNode;
+    }
+
+
+    var formPanel = document.querySelector(".formPanel");
+    formPanel.style.height = "80px";
+    formPanel.classList.add("bigButton");
+
+    choixCours.classList.remove("bigButton");
+    choixCours.style.height = "500px";
+    choixCours.style.cursor = "default";
+    
+
+    choixCours.removeEventListener("click", choixCoursOnClick);
+    formPanel.addEventListener("click", formPanelOnClick);
+}
+
+function formPanelOnClick(e) {
+    document.getElementById("chxBtnHolder").style.display = "block";
+    document.getElementById("formHolder").style.display = "block";
+
+
+    var formPanel = e.target;
+
+    while (formPanel.className.indexOf('formPanel') == -1) {
+        formPanel = formPanel.parentNode;
+    }
+
+
+    var choixCours = document.querySelector(".choixCours");
+    choixCours.style.height = "80px";
+    // choixCours.style.backgroundColor = "rgb(236, 22, 68)";
+    choixCours.classList.add('bigButton');
+    choixCours.style.cursor = "pointer";
+
+    formPanel.style.height = "600px";
+    formPanel.classList.remove('bigButton');
+
+    formPanel.removeEventListener("click", formPanelOnClick);
+    choixCours.addEventListener("click", choixCoursOnClick);
+
+}

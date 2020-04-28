@@ -1,10 +1,9 @@
 .choixCours {
     max-width: 500px;
-    height: 100px;
+    /* height: 80px; */
     margin-left: auto; 
     margin-right: auto;
-    margin-top: 60px;
-    background-color:  rgb(236, 22, 68);
+    margin-top: 40px;
     border-radius: 20px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     /* left: 0; 
@@ -18,21 +17,50 @@
     -ms-user-select: none; 
     user-select: none;
     cursor: pointer;
+    /* resize:horizontal;
+    overflow:auto;  */
     transition: all 200ms linear;
 }
 
-.choixCours:hover {
-    background-color:  rgb(255, 73, 73);
+.bigButton {
+
+    max-width: 300px;
+    height: 80px;
+    margin-left: auto; 
+    margin-right: auto;
+    /* margin-top: 60px; */
+    border-radius: 30px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    padding-top: 20px;
+    -webkit-user-select: none;
+    -ms-user-select: none; 
+    user-select: none;
+    cursor: pointer;
+    transition: all 200ms linear;
+
+    background-color:  rgb(235, 49, 80);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.459);
+    color: black;
 }
 
-.choixCours:active {
-    background-color:  rgb(216, 7, 42);
+.bigButton:hover {
+    background-color:  rgb(236, 191, 68);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.459);
+    color: black;
+}
+
+.bigButton:active {
+    background-color:  rgb(230, 141, 57);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.507);
 }
 
+.bigButton:hover label {
+    color: black;
+}
+
 .choixCours label {
-    font-size: 26px;
+    font-size: 20px;
     font-weight: 400;
     color: rgb(255, 255, 255);
     cursor: pointer;
@@ -41,8 +69,8 @@
 .choixCours img {
     display: block;
     margin: auto;
-    width: 40px;
-    height: 26px;
+    width: 36px;
+    height: 22px;
     cursor: pointer;
-    margin-top: 6px;
+    margin-top: 6x;
 }
