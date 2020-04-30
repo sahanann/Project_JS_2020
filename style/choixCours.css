@@ -1,6 +1,7 @@
 .choixCours {
-    max-width: 500px;
-    /* height: 80px; */
+    max-width: 1000px;
+    height: 80px;
+    /* max-height: 500px; */
     margin-left: auto; 
     margin-right: auto;
     margin-top: 40px;
@@ -13,13 +14,12 @@
     margin-top: 10px; */
     text-align: center;
     padding-top: 20px;
-    -webkit-user-select: none;
-    -ms-user-select: none; 
-    user-select: none;
-    cursor: pointer;
+    padding-bottom: 20px;
+    /* cursor: pointer; */
     /* resize:horizontal;
     overflow:auto;  */
     transition: all 200ms linear;
+    overflow: auto;
 }
 
 .bigButton {
@@ -42,6 +42,7 @@
     background-color:  rgb(235, 49, 80);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.459);
     color: black;
+    overflow: hidden;
 }
 
 .bigButton:hover {
@@ -74,3 +75,34 @@
     cursor: pointer;
     margin-top: 6x;
 }
+
+
+#tblCoursHolder {
+    display: none;
+    overflow: hidden;
+}
+
+.tabelCoursHorr {
+    margin: auto;
+}
+
+#tblCoursHolder table, th, td {
+    border: 1px solid rgb(235, 235, 235);
+    border-collapse: collapse;
+    padding: 4px;
+    /* text-align: left; */
+    border-collapse: collapse;
+}
+
+#tblCoursHolder table {
+    width: 95%;
+    border-radius: 10px;
+}
+
+#tblCoursHolder th {
+    /* text-align: left; */
+    background-color: rgba(0, 0, 0, 0.027);
+    color: rgb(0, 0, 0);
+    height: 30px;
+    padding: 10px;
+} 

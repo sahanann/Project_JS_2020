@@ -62,6 +62,7 @@ check["etablInput"] = check["nomInput"];
 function choixCoursOnClick(e) {
     document.getElementById("formHolder").style.display = "none";
     document.getElementById("chxBtnHolder").style.display = "none";
+    document.getElementById("tblCoursHolder").style.display = "block";
 
     var choixCours = e.target;
 
@@ -75,7 +76,9 @@ function choixCoursOnClick(e) {
     formPanel.classList.add("bigButton");
 
     choixCours.classList.remove("bigButton");
-    choixCours.style.height = "500px";
+    // choixCours.style.height = "500px";
+    // var rr = 
+    choixCours.style.height = "600px";
     choixCours.style.cursor = "default";
     
 
@@ -86,6 +89,7 @@ function choixCoursOnClick(e) {
 function formPanelOnClick(e) {
     document.getElementById("chxBtnHolder").style.display = "block";
     document.getElementById("formHolder").style.display = "block";
+    document.getElementById("tblCoursHolder").style.display = "none";
 
 
     var formPanel = e.target;
