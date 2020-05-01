@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="style/formPanel.css">
     <link rel="stylesheet" href="style/checkBox.css">
     <link rel="stylesheet" href="style/choixCours.css">
+    <link rel="stylesheet" href="style/tableCours.css">
+    <link rel="stylesheet" href="style/dateChose.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <body>
@@ -68,19 +70,37 @@
                 </div>
 
                 <div class="BackBtnHolder">
-                    <label>Retour</label>
-                    <img src="style/images/Arrow-up-white.png"  alt="image">
+                    <label>Retour au formulaire</label>
+                    <img class="btnFormImage"></img>
                 </div>
             </form>
 
+            
+            
 
-
+            <div class="choseDateHolder">
+                <div class="custom-select" style="width:200px;">
+                    <select>
+                      <option value="0">Select car:</option>
+                      <option value="1">Audi</option>
+                      <option value="2">BMW</option>
+                      <option value="3">Citroen</option>
+                      <option value="4">Ford</option>
+                      <option value="5">Honda</option>
+                      <option value="6">Jaguar</option>
+                    </select>
+                  </div>
+            </div>
 
             <div class="choixCours bigButton">
+                
+
                 <div id="chxBtnHolder">
                     <label>Choix des cours</label>
-                    <img src="style/images/Arrow-down-white.png"  alt="image">
+                    <img class="btnChoixImage"></img>
                 </div>
+
+                
                 
                 <!-- <p>&#9661</p> -->
                 <div id="tblCoursHolder">
@@ -116,32 +136,7 @@
                         </tr>
                         <!-- <tbody></tbody> -->
                     </table>
-                    <!-- <table class="tabelCours">
-                        <col>
-                        <colgroup span="2"></colgroup>
-                        <colgroup span="2"></colgroup>
-                        <tr>
-                            <th>Bloc</th>
-                            <th>Intitulé de cours</th> 
-                            <th colspan="2" scope="colgroup">Type</th>
-                          
-                        </tr>
-                        <tr>
-                          <td>Jill</td>
-                          <td>Smith</td>
-                          <td>50</td>
-                        </tr>
-                        <tr>
-                          <td>Eve</td>
-                          <td>Jackson</td>
-                          <td>94</td>
-                        </tr>
-                        <tr>
-                          <td>John</td>
-                          <td>Doe</td>
-                          <td>80</td>
-                        </tr>
-                    </table> -->
+                    
                 </div>
             </div>
 
@@ -158,6 +153,7 @@
 
     <script src="script/formVerification.js"></script>
     <script src="script/appelleServeur.js"></script>
+    <script src="script/customSelect.js"></script>
     </body>
 </head>
 </html>

@@ -63,6 +63,8 @@ function choixCoursOnClick(e) {
     document.getElementById("formHolder").style.display = "none";
     document.getElementById("chxBtnHolder").style.display = "none";
     document.getElementById("tblCoursHolder").style.display = "block";
+    document.querySelector(".custom-select").style.display = "block";
+    document.querySelector(".choseDateHolder").style.maxWidth = "1000px";
 
     var choixCours = e.target;
 
@@ -90,6 +92,8 @@ function formPanelOnClick(e) {
     document.getElementById("chxBtnHolder").style.display = "block";
     document.getElementById("formHolder").style.display = "block";
     document.getElementById("tblCoursHolder").style.display = "none";
+    document.querySelector(".custom-select").style.display = "none";
+    document.querySelector(".choseDateHolder").style.maxWidth = "300px";
 
 
     var formPanel = e.target;

@@ -39,10 +39,17 @@ function createTable(obj) {
 	
 	var table = document.querySelector(".tabelCoursHorr");
 	console.log(headers);
-
+	var tableGrpClass = ["tblCoursG1", "tblCoursG2", "tblCoursG3", "tblCoursG4"];
 	for (var i = 0; i < obj.length; i++) {
 		tr = table.insertRow(-1);
-		for (var j = 0; j < headers.length; j++) {
+		tr.classList.add("tableRowStyle");
+		var indx = parseInt(obj[i]["categorie"]) - 1;
+		tr.classList.add(tableGrpClass[parseInt(obj[i]["categorie"]) - 1]);
+		// tr.setAttribute("id", tableGrpClass[parseInt(obj[i]["categorie"]) - 1]);
+
+		tr.addEventListener("click", tableRowOnClick);
+
+		for (var j = 0; j < headers.length - 1; j++) {
 			
 			if (headers[j] === "type") {
 				if (obj[i][headers[j]] == 1) 
@@ -76,6 +83,38 @@ function addCell(tr, value) {
 	var tabCell = tr.insertCell(-1);
 	tabCell.innerHTML = value;
 }
+
+
+function tableRowOnClick(e) {
+	var row = e.target;
+
+    while (row.className.indexOf('tableRowStyle') == -1) {
+        row = row.parentNode;
+	}
+
+	var groupe = row.classList[1];
+	var selected = groupe + "Selected";
+
+	if(row.classList.contains(selected))
+		row.classList.remove(selected);
+	else {
+		var elements = document.getElementsByClassName(groupe);
+		// console.log(elements[0]);
+		for (var i = 0; i < elements.length; i++)
+			if(elements[i].classList.contains(selected)) {
+				elements[i].classList.remove(selected);
+				break;
+			}
+				
+		row.classList.add(selected);
+	}
+		
+	// console.log(row);
+}
+
+
+
+
 
 
 

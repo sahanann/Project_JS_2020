@@ -1,0 +1,123 @@
+#tblCoursHolder {
+    display: none;
+    overflow: hidden;
+}
+
+.tabelCoursHorr {
+    margin: auto;
+}
+
+#tblCoursHolder table, th, td {
+    border: 1px solid rgb(235, 235, 235);
+    border-collapse: collapse;
+    padding: 4px;
+    /* text-align: left; */
+    border-collapse: collapse;
+}
+
+#tblCoursHolder table {
+    width: 95%;
+    border-radius: 10px;
+}
+
+#tblCoursHolder th {
+    /* text-align: left; */
+    background-color: rgba(0, 0, 0, 0.027);
+    color: rgb(0, 0, 0);
+    height: 30px;
+    padding: 10px;
+} 
+
+/* .tableRowStyle:hover td{
+    background-color: rgb(233, 233, 233);
+    color: white;
+} */
+
+
+.tblCoursG1 {
+    background-color: rgb(255, 253, 220, 0.45);
+}
+
+.tblCoursG2 {
+    background-color: rgb(231, 249, 255, 0.45);
+}
+
+.tblCoursG3 {
+    background-color: rgba(255, 226, 225, 0.45);
+}
+
+.tblCoursG4 {
+    background-color: rgba(230, 255, 237, 0.45);
+}
+
+
+
+.tblCoursG1:hover {
+    background-color: rgb(240, 238, 197);
+    color: black;
+}
+
+.tblCoursG2:hover {
+    background-color: rgb(201, 228, 236);
+    color: black;
+}
+.tblCoursG3:hover {
+    background-color: rgb(243, 214, 213);
+    color: black;
+}
+
+.tblCoursG4:hover {
+    background-color: rgba(201, 233, 210);
+    color: black;
+}
+
+.tblRowSelected {
+    background-color: rgb(248, 36, 82);
+    color: rgb(255, 255, 255);
+}
+
+.tblRowSelected:hover {
+    background-color: rgb(255, 53, 97);
+    color: rgb(255, 255, 255);
+}
+
+
+.tblCoursG1Selected {
+    background-color: rgb(235, 215, 42);
+    /* color: white; */
+}
+
+.tblCoursG2Selected {
+    background-color: rgb(20, 176, 228);
+    color: white;
+}
+
+.tblCoursG3Selected {
+    background-color: rgb(255, 44, 37);
+    color: white;
+}
+
+.tblCoursG4Selected {
+    background-color: rgb(18, 190, 67);
+    color: white;
+}
+
+.tblCoursG1Selected:hover {
+    background-color: rgb(235, 215, 42);
+    /* color: white; */
+}
+
+.tblCoursG2Selected:hover {
+    background-color: rgb(20, 176, 228);
+    color: white;
+}
+
+.tblCoursG3Selected:hover {
+    background-color: rgb(255, 44, 37);
+    color: white;
+}
+
+.tblCoursG4Selected:hover {
+    background-color: rgb(18, 190, 67);
+    color: white;
+}

@@ -4,7 +4,7 @@
     /* max-height: 500px; */
     margin-left: auto; 
     margin-right: auto;
-    margin-top: 40px;
+    /* margin-top: 40px; */
     border-radius: 20px;
     box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
     /* left: 0; 
@@ -51,6 +51,8 @@
     color: black;
 }
 
+
+
 .bigButton:active {
     background-color:  rgb(230, 141, 57);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.507);
@@ -67,42 +69,20 @@
     cursor: pointer;
 }
 
-.choixCours img {
+.btnChoixImage {
     display: block;
     margin: auto;
     width: 36px;
     height: 22px;
     cursor: pointer;
     margin-top: 6x;
+    content: url("images/Arrow-down-white.png");
+}
+
+.bigButton:hover .btnChoixImage {
+    content: url("images/Arrow-down.png");
 }
 
 
-#tblCoursHolder {
-    display: none;
-    overflow: hidden;
-}
 
-.tabelCoursHorr {
-    margin: auto;
-}
 
-#tblCoursHolder table, th, td {
-    border: 1px solid rgb(235, 235, 235);
-    border-collapse: collapse;
-    padding: 4px;
-    /* text-align: left; */
-    border-collapse: collapse;
-}
-
-#tblCoursHolder table {
-    width: 95%;
-    border-radius: 10px;
-}
-
-#tblCoursHolder th {
-    /* text-align: left; */
-    background-color: rgba(0, 0, 0, 0.027);
-    color: rgb(0, 0, 0);
-    height: 30px;
-    padding: 10px;
-} 
