@@ -9,11 +9,12 @@
     // echo "Initial character set is: " . mysqli_character_set_name($con);
     mysqli_set_charset($con, 'utf8');
 
-    $querry =  "SELECT cours.bloc, cours.intitule, cours.type, duree.debut, duree.fin, cours.finalite, duree.categorie
-                FROM cours, horraire, duree 
+    $querry =  "SELECT cours.bloc, cours.intitule, cours.type, duree.debut, duree.fin, cours.finalite, duree.categorie, jours.jour
+                FROM cours, horraire, duree, jours
                 WHERE horraire.idCours = cours.id
                 AND horraire.idDuree = duree.id
-                ORDER BY duree.debut;";
+                AND horraire.idJour = jours.id
+                ORDER BY jours.jour, duree.debut;";
     $result = mysqli_query($con, $querry);
 
     if ($result == NULL)

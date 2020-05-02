@@ -121,3 +121,7 @@
     background-color: rgb(18, 190, 67);
     color: white;
 }
+
+#tableOriginal {
+    display: none;
+}

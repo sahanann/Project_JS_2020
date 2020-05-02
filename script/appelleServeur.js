@@ -37,46 +37,81 @@ function createTable(obj) {
         }
 	}
 	
-	var table = document.querySelector(".tabelCoursHorr");
-	console.log(headers);
+	
+	// console.log(headers);
 	var tableGrpClass = ["tblCoursG1", "tblCoursG2", "tblCoursG3", "tblCoursG4"];
-	for (var i = 0; i < obj.length; i++) {
-		tr = table.insertRow(-1);
-		tr.classList.add("tableRowStyle");
-		var indx = parseInt(obj[i]["categorie"]) - 1;
-		tr.classList.add(tableGrpClass[parseInt(obj[i]["categorie"]) - 1]);
-		// tr.setAttribute("id", tableGrpClass[parseInt(obj[i]["categorie"]) - 1]);
 
-		tr.addEventListener("click", tableRowOnClick);
+	var tableBase = document.querySelector(".tabelCoursHorr");
 
-		for (var j = 0; j < headers.length - 1; j++) {
-			
-			if (headers[j] === "type") {
-				if (obj[i][headers[j]] == 1) 
-					addCell(tr, "Théorie");
-				else if (obj[i][headers[j]] == 2)
-					addCell(tr, "Labo");
-				else
-					addCell(tr, "TFE");
-			}
-			else if (headers[j] === "finalite") {
-				var str = obj[i][headers[j]];
-				var final = ["I", "R", "G"];
-				for (var x = 0; x < 3; x++)
-					if (str.charAt(x) === final[x])
-						addCell(tr, " x ");
-					else 
-						addCell(tr, "   ");
-				
+	var datesList = [];
+	var leDate = obj[0][headers[headers.length - 1]];
+	datesList.push(leDate);
+	addElemToSelect(leDate);
+
+	
+	var indx = 0;
+	for (var xx = 0; indx < obj.length; xx++) {
+		var table = tableBase.cloneNode(true);
+		var idString = "tableCours" + xx;
+		table.setAttribute("id", idString);
+		if (xx == 0)
+			table.style.display = null;
+		else
+			table.style.display = "none";
+
+		for (;indx < obj.length; indx++) {
+			if (leDate != obj[indx][headers[headers.length - 1]]) {
+				leDate = obj[indx][headers[headers.length - 1]];
+				addElemToSelect(leDate);
+				datesList.push(leDate);
+				break;
 			}
 			else {
-				addCell(tr, obj[i][headers[j]]);
+				tr = table.insertRow(-1);
+				tr.classList.add("tableRowStyle");
+				tr.classList.add(tableGrpClass[parseInt(obj[indx]["categorie"]) - 1]);
+				tr.classList.add("tableNum" + xx);
+				tr.addEventListener("click", tableRowOnClick);
+		
+		
+		
+				for (var j = 0; j < headers.length - 2; j++) {
+					
+					if (headers[j] === "type") {
+						if (obj[indx][headers[j]] == 1) 
+							addCell(tr, "Théorie");
+						else if (obj[indx][headers[j]] == 2)
+							addCell(tr, "Labo");
+						else
+							addCell(tr, "TFE");
+					}
+					else if (headers[j] === "finalite") {
+						var str = obj[indx][headers[j]];
+						var final = ["I", "R", "G"];
+						for (var x = 0; x < 3; x++)
+							if (str.charAt(x) === final[x])
+								addCell(tr, " x ");
+							else 
+								addCell(tr, "   ");
+						
+					}
+					else {
+						addCell(tr, obj[indx][headers[j]]);
+					}
+				}
 			}
-			// var tabCell = tr.insertCell(-1);
-			// tabCell.innerHTML = obj[i][headers[j]];
+				
+	
+	
 			
+
 		}
+
+		document.getElementById("tblCoursHolder").appendChild(table);
 	}
+	// document.getElementById("tableCours2").style.display = null;
+
+	
 }
 
 function addCell(tr, value) {
@@ -92,13 +127,16 @@ function tableRowOnClick(e) {
         row = row.parentNode;
 	}
 
+	
+
+	var tableNum = row.classList[2];
 	var groupe = row.classList[1];
 	var selected = groupe + "Selected";
 
 	if(row.classList.contains(selected))
 		row.classList.remove(selected);
 	else {
-		var elements = document.getElementsByClassName(groupe);
+		var elements = document.getElementsByClassName(groupe + " " + tableNum);
 		// console.log(elements[0]);
 		for (var i = 0; i < elements.length; i++)
 			if(elements[i].classList.contains(selected)) {
