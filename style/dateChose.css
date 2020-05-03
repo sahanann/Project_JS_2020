@@ -9,11 +9,52 @@
 
 
 
+#submitBtn {
+    display: none;
+    box-shadow: 0 5px 8px rgba(0, 0, 0, 0.4);
+    background-color: rgb(20, 127, 221);
+    width: 200px;
+    height: 42px;
+    border: none;
+    border-radius: 18px;
+    transition: all 160ms linear;
+    margin-top: 16px;
+    color: white;
+    float: right;
+    outline: none;
+    border: none;
+    font-size: 18px;
+}
+
+#submitBtn:hover {
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
+    background-color: rgb(43, 135, 255);
+}
+
+#submitBtn:active {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    background-color: rgb(16, 113, 197);
+    color: rgba(255, 255, 255, 0.616);
+}
+
+#submitBtn:disabled {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
+    background-color: rgb(69, 133, 189);
+    color: rgba(255, 255, 255, 0.363);
+    cursor: not-allowed;
+}
+
+
+
 .custom-select {
     position: relative;
     font-weight: 500;
     
     display: none;
+}
+
+.custom-select:focus {
+    border: none;
 }
 
 #datesSelector {
@@ -23,6 +64,14 @@
     border: none;
     border-radius: 10px;
     padding-left: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    color: rgb(39, 39, 39);
+}
+
+#datesSelector:disabled {
+    color: rgb(150, 150, 150);
+    cursor: not-allowed;
 }
 
 /*

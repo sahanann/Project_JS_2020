@@ -12,14 +12,16 @@ body {
     left: 0; 
     right: 0;  
     top: 20px;
-    max-width: 640px;
+    max-width: 740px;
 
     margin: auto;
     /* padding: 10px; */
-    background-color: rgb(189, 22, 64);
+    background-color: rgb(235, 49, 95);
+    color: white;
     height: 146px;
     border-radius: 23px;
     z-index: -1;
+    text-align: center;
 }
 
 .tabs button {

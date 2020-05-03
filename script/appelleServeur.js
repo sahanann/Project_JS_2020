@@ -44,7 +44,7 @@ function createTable(obj) {
 	var tableBase = document.querySelector(".tabelCoursHorr");
 
 	var datesList = [];
-	var leDate = obj[0][headers[headers.length - 1]];
+	var leDate = obj[0][headers[headers.length - 2]];
 	datesList.push(leDate);
 	addElemToSelect(leDate);
 
@@ -60,8 +60,8 @@ function createTable(obj) {
 			table.style.display = "none";
 
 		for (;indx < obj.length; indx++) {
-			if (leDate != obj[indx][headers[headers.length - 1]]) {
-				leDate = obj[indx][headers[headers.length - 1]];
+			if (leDate != obj[indx][headers[headers.length - 2]]) {
+				leDate = obj[indx][headers[headers.length - 2]];
 				addElemToSelect(leDate);
 				datesList.push(leDate);
 				break;
@@ -75,7 +75,7 @@ function createTable(obj) {
 		
 		
 		
-				for (var j = 0; j < headers.length - 2; j++) {
+				for (var j = 0; j < headers.length - 3; j++) {
 					
 					if (headers[j] === "type") {
 						if (obj[indx][headers[j]] == 1) 
@@ -94,6 +94,10 @@ function createTable(obj) {
 							else 
 								addCell(tr, "   ");
 						
+						var strId = obj[indx][headers[j + 3]];
+						var tabCell = tr.insertCell(-1);
+						tabCell.setAttribute("class", "invisibleCell");
+						tabCell.innerHTML = strId;
 					}
 					else {
 						addCell(tr, obj[indx][headers[j]]);
@@ -119,6 +123,9 @@ function addCell(tr, value) {
 	tabCell.innerHTML = value;
 }
 
+var minChoice = 2;
+var selectedCount = [0, 0, 0];
+var currentTable = 0;
 
 function tableRowOnClick(e) {
 	var row = e.target;
@@ -127,26 +134,40 @@ function tableRowOnClick(e) {
         row = row.parentNode;
 	}
 
-	
+	console.log(row.lastChild);
 
 	var tableNum = row.classList[2];
 	var groupe = row.classList[1];
 	var selected = groupe + "Selected";
 
-	if(row.classList.contains(selected))
+	if(row.classList.contains(selected)) {
 		row.classList.remove(selected);
+		selectedCount[currentTable]--;
+	}
 	else {
 		var elements = document.getElementsByClassName(groupe + " " + tableNum);
 		// console.log(elements[0]);
 		for (var i = 0; i < elements.length; i++)
 			if(elements[i].classList.contains(selected)) {
 				elements[i].classList.remove(selected);
+				selectedCount[currentTable]--;
 				break;
 			}
 				
 		row.classList.add(selected);
+		selectedCount[currentTable]++;
 	}
-		
+
+	console.log(selectedCount[currentTable]);
+	if (selectedCount[currentTable] > 0 && selectedCount[currentTable] < minChoice) {
+		document.getElementById("datesSelector").disabled = true;
+		document.getElementById("submitBtn").disabled = true;
+	}
+	else {
+		document.getElementById("datesSelector").disabled = false;
+		document.getElementById("submitBtn").disabled = false;
+	}
+
 	// console.log(row);
 }
 

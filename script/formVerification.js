@@ -43,7 +43,6 @@ check["nomInput"] = function(item) {
 };
 
 check["prenomInput"] = check["nomInput"];
-check["etablInput"] = check["nomInput"];
 
 
 
@@ -64,7 +63,8 @@ function choixCoursOnClick(e) {
     document.getElementById("chxBtnHolder").style.display = "none";
     document.getElementById("tblCoursHolder").style.display = "block";
     document.querySelector(".custom-select").style.display = "block";
-    document.querySelector(".choseDateHolder").style.maxWidth = "1000px";
+    document.querySelectorAll(".choseDateHolder").forEach(item => {item.style.maxWidth = "1000px";});
+    document.getElementById("submitBtn").style.display = "block";
 
     var choixCours = e.target;
 
@@ -93,7 +93,8 @@ function formPanelOnClick(e) {
     document.getElementById("formHolder").style.display = "block";
     document.getElementById("tblCoursHolder").style.display = "none";
     document.querySelector(".custom-select").style.display = "none";
-    document.querySelector(".choseDateHolder").style.maxWidth = "300px";
+    document.querySelectorAll(".choseDateHolder").forEach(item => {item.style.maxWidth = "300px";});
+    document.getElementById("submitBtn").style.display = "none";
 
 
     var formPanel = e.target;

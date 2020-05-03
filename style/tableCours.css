@@ -16,8 +16,9 @@
 }
 
 #tblCoursHolder table {
-    width: 95%;
+    width: 100%;
     border-radius: 10px;
+    margin-left: 20px;
 }
 
 #tblCoursHolder th {
@@ -124,4 +125,8 @@
 
 #tableOriginal {
     display: none;
+}
+
+.invisibleCell {
+    visibility: hidden;
 }

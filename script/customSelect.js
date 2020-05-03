@@ -100,6 +100,7 @@ function addElemToSelect(value) {
 document.getElementById("datesSelector").addEventListener("change", (e) => {
   // console.log("Selected index = " + e.target.selectedIndex + "Length = " + e.target.length);
   var selIndex = e.target.selectedIndex;
+  currentTable = selIndex;
   for (var i = 0; i < e.target.length; i++) {
     var str = "tableCours" + i;
     if (i == selIndex) 
