@@ -1,0 +1,179 @@
+* { box-sizing:border-box; }
+
+body {
+    margin: 20px;
+    padding: 0;
+    /* font-family: sans-serif; */
+    font-family: 'Roboto', sans-serif;
+}
+
+.titleBar {
+    margin: auto;
+    max-width: 740px;
+    height: 64px;
+    background-color: rgb(33, 122, 240);
+    color: white;
+    border-radius: 10px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.425);
+    text-align: center;
+    padding-top: 14px;
+    font-size: 22px;
+    margin-bottom: 50px;
+}
+
+.AjoutCoursBox {
+    margin-bottom: 38px;
+    /* max-width: 740px; */
+    /* height: 0px; */
+    border-radius: 14px;
+    background-color: white;
+    box-shadow: 0 5px 14px rgba(0, 0, 0, 0.24);
+    /* padding: 0; */
+    transition: all 200ms linear;
+    overflow: hidden;
+    
+    padding: 30px 40px 20px 40px;
+    /* height: 400px; */
+}
+
+.formBoxHolder {
+    margin: auto;
+    position: relative;
+    max-width: 740px;
+}
+
+
+
+.largeButton {
+    margin: auto;
+    border: none;
+    outline: none;
+    max-width: 740px;
+    height: 50px;
+    border-radius: 14px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.24);
+    margin-top: 36px;
+    transition: all 160ms linear;
+    text-align: center;
+    padding-top: 10px;
+    font-size: 22px;
+    margin-bottom: 30px;
+}
+
+
+.largeButton:hover {
+    background-color: rgb(227, 244, 255);
+    box-shadow: 0 5px 16px rgba(0, 0, 0, 0.34);
+}
+
+.largeButton:active {
+    background-color: rgb(83, 163, 255);
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.fieldGroup {
+    width: 90%;
+    /* height: auto; */
+    margin: 0 auto;
+    /* padding: 10px; */
+    position: relative;
+}
+
+
+
+.AjoutCoursBox input[type="text"] {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.158);
+    background: transparent;
+    outline: none;
+    height: 36px;
+    color: rgb(31, 31, 31);
+    font-size: 16px;
+    /* margin-bottom: 20px; */
+
+    
+}
+
+.AjoutCoursBox ::placeholder {
+    font-size: 14px;
+    color: #a8a8a8;
+    opacity: 1;
+  }
+
+.AjoutCoursBox span {
+    height: 24px;
+    /* background-color: #803939; */
+    color: #fb2525;
+    padding-top: 4px;
+    /* padding: 0 0 0 10; */
+    font-size: 14px;
+    display: block;
+    margin-bottom: 6px;
+}
+
+
+
+.myActionButton {
+    position: absolute;
+    bottom: -18px;
+    right: 50px;
+    height: 38px;
+    width: 100px;
+    background-color: rgb(33, 122, 240);
+    color: white;
+    border: none;
+    outline: none;
+    border-radius: 14px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    transition: all 140ms linear;
+}
+
+
+
+.myActionButton:hover {
+    background-color: rgb(45, 134, 252);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.56);
+}
+
+.myActionButton:active {
+    background-color: rgb(26, 113, 228);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.46);
+}
+
+.colGroup {
+    width: 90%;
+    /* display: inline-block; */
+    margin: 0 auto;
+    position: relative;
+}
+
+.colGroup1 {
+    float: left;
+    margin-right: 30px;
+    
+}
+
+.colGroup2 {
+    float: left;
+    margin-right: 30px;
+}
+
+.secondRow {
+    width: 90%;
+    height: 100px;
+    display: inline-block;
+    margin-left: 5%;
+    position: relative;
+}
+
+.oneLine {
+    width: 100%;
+    /* display: inline-block; */
+    margin: 0 auto;
+    position: relative;
+    /* background-color: #fb2525; */
+}

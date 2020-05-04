@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Admin</title>
+    
+    <link rel="stylesheet" href="style/admin/adminStyle.css">
+    <link rel="stylesheet" href="style/formPanel.css">
+    <link rel="stylesheet" href="style/admin/comboBox.css">
+    <!-- <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/formPanel.css">
+    <link rel="stylesheet" href="style/checkBox.css">
+    <link rel="stylesheet" href="style/choixCours.css">
+    <link rel="stylesheet" href="style/tableCours.css">
+    <link rel="stylesheet" href="style/dateChose.css"> -->
+
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <body>
+
+        <div class="titleBar">Administration des données</div>
+
+        <div class="largeButton sliderDown" id="ajoutCourSlider">Encodage des cours</div>
+
+        <div class="formBoxHolder">
+            <div class="AjoutCoursBox">
+                <div class="fieldGroup">
+                    <label for="nomCoursInput" class="filedName">Nom du cours</label>
+                    <input type="text" class="nomCoursInput" placeholder="Entrez le nom du cours" id="nomCoursInput">
+                    <span id="nomCoursInputErr"></span>
+                </div>
+    
+                <div class="oneLine">
+                    <div class="fieldGroup">
+                        <label for="nomProfInput" class="filedName">Nom du professeur</label>
+                        <div class="selectHolder">
+                            <select class="customSelect" id="nomProfSelect">
+                                <option value="0">Choisissez le nom du professeur</option>
+                                <option value="1">Théorie</option>
+                                <option value="2">Labo</option>
+                                <option value="3">TFE</option>
+                            </select>
+                        </div>
+                        <span id="nomProfInputErr"></span>
+                    </div>
+                </div>
+    
+                <div class="colGroup">
+                    <div class="colGroup1">
+                        <div class="fieldGroup">
+                            <label class="filedName">Type de cours</label>
+                            <div class="selectHolder">
+                                <select class="customSelect" id="datesSelector">
+                                    <option value="0">Choisissez le type</option>
+                                    <option value="1">Théorie</option>
+                                    <option value="2">Labo</option>
+                                    <option value="3">TFE</option>
+                                </select>
+                            </div>
+                            <!-- <span id="nomProfInputErr"></span> -->
+                        </div>
+                        
+                    </div>
+    
+                    <div class="colGroup1">
+                        <div class="fieldGroup">
+                            <label class="filedName">Local</label>
+                            <div class="selectHolder">
+                                <select class="customSelect" id="datesSelector">
+                                    <option value="0">Choisissez le local</option>
+                                    <option value="1">Théorie</option>
+                                    <option value="2">Labo</option>
+                                    <option value="3">TFE</option>
+                                </select>
+                            </div>
+                            <!-- <span id="nomProfInputErr"></span> -->
+                        </div>
+                        
+                    </div>
+    
+    
+                    
+    
+    
+                </div>
+                
+                <div class="colGroup">
+                    <div class="colGroup1">
+                        <div class="fieldGroup">
+                            <label class="filedName">Date</label>
+                            <div class="selectHolder">
+                                <select class="customSelect" id="datesSelector">
+                                    <option value="0">12/03/2010</option>
+                                    <option value="1">Théorie</option>
+                                    <option value="2">Labo</option>
+                                    <option value="3">TFE</option>
+                                </select>
+                            </div>
+                            <!-- <span id="nomProfInputErr"></span> -->
+                        </div>
+                    </div>
+    
+                    <div class="colGroup1">
+                        <div class="fieldGroup">
+                            <label class="filedName">Heure début</label>
+                            <div class="selectHolder">
+                                <select class="customSelect" id="datesSelector">
+                                    <option value="0">10:00:00</option>
+                                    <option value="1">Théorie</option>
+                                    <option value="2">Labo</option>
+                                    <option value="3">TFE</option>
+                                </select>
+                            </div>
+                            <!-- <span id="nomProfInputErr"></span> -->
+                        </div>
+                    </div>
+    
+                    <div class="colGroup1">
+                        <div class="fieldGroup">
+                            <label class="filedName">Heure fin</label>
+                            <div class="selectHolder">
+                                <select class="customSelect" id="datesSelector">
+                                    <option value="0">10:00:00</option>
+                                    <option value="1">Théorie</option>
+                                    <option value="2">Labo</option>
+                                    <option value="3">TFE</option>
+                                </select>
+                            </div>
+                            <!-- <span id="nomProfInputErr"></span> -->
+                        </div>
+                    </div>
+                </div>
+    
+                <div class="colGroup">
+                    <div class="colGroup1">
+                        <div class="fieldGroup">
+                            <label class="filedName">Finalite</label>
+                            <div class="selectHolder">
+                                <select class="customSelect" id="datesSelector">
+                                    <option value="0">Gestion</option>
+                                    <option value="1">Indus,</option>
+                                    <option value="2">Réseau</option>
+                                </select>
+                            </div>
+                            <!-- <span id="nomProfInputErr"></span> -->
+                        </div>
+                    </div>
+    
+                    <div class="colGroup1">
+                        <div class="fieldGroup">
+                            <label for="groupeCBox" class="filedName">Groupe</label>
+                            <div class="selectHolder">
+                                <select class="customSelect" id="groupeCBox">
+                                    <option value="0">2202</option>
+                                    <option value="1">2201,</option>
+                                    <option value="2">2203</option>
+                                </select>
+                            </div>
+                            <!-- <span id="nomProfInputErr"></span> -->
+                        </div>
+                    </div>
+    
+                </div>
+                
+                
+            </div>
+            <button class="myActionButton">Ajouter</button>
+        </div>
+
+        
+
+        <div class="formBoxHolder">
+            <div class="AjoutCoursBox">
+                <div class="fieldGroup">
+                    <label for="nomCoursInput" class="filedName">Ajouter un nouveau professeur</label>
+                    <input type="text" class="nomCoursInput" placeholder="Entrez le nom du professeur" id="nomCoursInput">
+                    <span id="nomCoursInputErr"></span>
+                </div>
+                
+            </div>
+            <button id="ajoutProfBtn" class="myActionButton">Ajouter</button>
+        </div>
+
+
+        <div class="formBoxHolder">
+            <div class="AjoutCoursBox">
+                <div class="fieldGroup">
+                    <label for="nomCoursInput" class="filedName">Ajouter un nouveau local</label>
+                    <input type="text" class="nomCoursInput" placeholder="Entrez le nom du local" id="nomCoursInput">
+                    <span id="nomCoursInputErr"></span>
+                </div>
+                
+            </div>
+            <button id="ajoutProfBtn" class="myActionButton">Ajouter</button>
+        </div>
+
+        <div class="formBoxHolder">
+            <div class="AjoutCoursBox">
+                <div class="fieldGroup">
+                    <label for="nomCoursInput" class="filedName">Ajouter un nouveau groupe</label>
+                    <input type="text" class="nomCoursInput" placeholder="Entrez le numéro du groupe" id="nomCoursInput">
+                    <span id="nomCoursInputErr"></span>
+                </div>
+                
+            </div>
+            <button id="ajoutProfBtn" class="myActionButton">Ajouter</button>
+        </div>
+
+        
+        
+
+    <!-- <script src="script/formVerification.js"></script>
+    <script src="script/appelleServeur.js"></script>
+    <script src="script/customSelect.js"></script> -->
+    <script src="script/admin.js"></script>
+    </body>
+</head>
+</html>
