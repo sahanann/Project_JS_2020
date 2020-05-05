@@ -28,10 +28,31 @@
     border-radius: 10px;
 }
 
+/* .customSelect:hover {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.4);
+} */
+
+.fieldGroup:hover .customSelect {
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.35);
+}
+
+
 .customSelect option {
     border: none;
 }
 
 #nomProfSelect {
     width: 300px;
+}
+
+#nomCoursSelect {
+    width: 100%;
+}
+
+#typeCoursSelect {
+    min-width: 130px;
+}
+
+.hiddenOption {
+    display: none;
 }

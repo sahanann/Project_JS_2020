@@ -24,6 +24,14 @@
     overflow: hidden;
 }
 
+.filedName {
+    transition: all .2s ease-in-out;
+}
+
+.fieldGroup {
+    display: block;
+}
+
 .fieldGroup:hover .filedName {
     font-weight: 700;
     color: rgb(0, 0, 0);
@@ -47,7 +55,7 @@
 
 
 .formPanel input[type="text"] {
-    width: 80%;
+    width: 100%;
     border: none;
     border-bottom: 1px solid rgba(0, 0, 0, 0.158);
     background: transparent;
