@@ -28,14 +28,14 @@
             <div class="AjoutCoursBox">
                 <div class="fieldGroup">
                     <label for="nomCoursInput" class="filedName">Nom du cours</label>
-                    <input type="text" placeholder="Entrez le nom du cours" id="nomCoursInput">
+                    <input autocomplete="new-password" type="text" placeholder="Entrez le nom du cours" id="nomCoursInput">
                     <span id="nomCoursInputErr"></span>
                 </div>
 
                 <div class="fieldGroup">
                     <label for="LocalInput" class="filedName">Local</label>
                     <input type="text" placeholder="Entrez le local" id="LocalInput">
-                    <span id="LocalErr"></span>
+                    <span id="LocalInputErr"></span>
                 </div>
     
                 <div class="oneLine">
@@ -55,21 +55,21 @@
                     <label class="filedName">Finalité</label>
                     <div class="checkBoxes">
                         <label class="container">Informatique de gestion
-                            <input type="checkbox">
+                            <input class="cbFinalite" type="checkbox">
                             <span class="checkmark"></span>
                         </label>
     
                         <label class="container">Informatique et système : réseaux et télécommunications
-                            <input type="checkbox">
+                            <input class="cbFinalite" type="checkbox">
                             <span class="checkmark"></span>
                         </label>
     
                         <label class="container">Informatique et système : informatique industrielle
-                            <input type="checkbox">
+                            <input class="cbFinalite" type="checkbox">
                             <span class="checkmark"></span>
                         </label>
                     </div>
-                    <span id="nomProfInputErr"></span>
+                    <span id="cbFinaliteErr"></span>
                 </div>
 
                 
@@ -93,9 +93,9 @@
                     
                     <div class="colGroup1">
                         <div class="fieldGroup">
-                            <label for="groupeCBox" class="filedName">Bloc</label>
+                            <label for="groupeSelect" class="filedName">Bloc</label>
                             <div class="selectHolder">
-                                <select class="customSelect" id="groupeCBox">
+                                <select class="customSelect" id="groupeSelect">
                                     <option value="0">1</option>
                                     <option value="1">2</option>
                                     <option value="2">3</option>
@@ -113,7 +113,7 @@
                 
                 
             </div>
-            <button class="myActionButton">Ajouter</button>
+            <button class="myActionButton" id="ajoutCoursBtn">Ajouter</button>
         </div>
 
         
@@ -146,13 +146,13 @@
 
                 <div class="oneLine">
                     <div class="fieldGroup">
-                        <label for="nomProfInput" class="filedName">Le cours</label>
+                        <label for="nomCoursSelect" class="filedName">Le cours</label>
                         <div class="selectHolder">
                             <select class="customSelect" id="nomCoursSelect">
                                 <option value="0">Choisissez un cours</option>
                             </select>
                         </div>
-                        <span id="nomProfInputErr"></span>
+                        <span id="nomCoursSelectErr"></span>
                     </div>
                 </div>
 
@@ -185,7 +185,7 @@
                 </div>
                 
             </div>
-            <button id="ajoutProfBtn" class="myActionButton">Ajouter</button>
+            <button id="ajoutHorBtn" class="myActionButton">Ajouter</button>
         </div>
 
 

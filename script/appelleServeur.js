@@ -44,7 +44,7 @@ function createTable(obj) {
 	var tableBase = document.querySelector(".tabelCoursHorr");
 
 	var datesList = [];
-	var leDate = obj[0][headers[headers.length - 2]];
+	var leDate = obj[0]["jour"];
 	datesList.push(leDate);
 	addElemToSelect(leDate);
 
@@ -60,8 +60,8 @@ function createTable(obj) {
 			table.style.display = "none";
 
 		for (;indx < obj.length; indx++) {
-			if (leDate != obj[indx][headers[headers.length - 2]]) {
-				leDate = obj[indx][headers[headers.length - 2]];
+			if (leDate != obj[indx]["jour"]) {
+				leDate = obj[indx]["jour"];
 				addElemToSelect(leDate);
 				datesList.push(leDate);
 				break;
@@ -78,15 +78,15 @@ function createTable(obj) {
 				for (var j = 0; j < headers.length - 3; j++) {
 					
 					if (headers[j] === "type") {
-						if (obj[indx][headers[j]] == 1) 
+						if (obj[indx]["type"] == 1) 
 							addCell(tr, "Théorie");
-						else if (obj[indx][headers[j]] == 2)
+						else if (obj[indx]["type"] == 2)
 							addCell(tr, "Labo");
 						else
 							addCell(tr, "TFE");
 					}
 					else if (headers[j] === "finalite") {
-						var str = obj[indx][headers[j]];
+						var str = obj[indx]["finalite"];
 						var final = ["I", "R", "G"];
 						for (var x = 0; x < 3; x++)
 							if (str.charAt(x) === final[x])
@@ -94,7 +94,7 @@ function createTable(obj) {
 							else 
 								addCell(tr, "   ");
 						
-						var strId = obj[indx][headers[j + 3]];
+						var strId = obj[indx]["idHorraire"];
 						var tabCell = tr.insertCell(-1);
 						tabCell.setAttribute("class", "invisibleCell");
 						tabCell.innerHTML = strId;

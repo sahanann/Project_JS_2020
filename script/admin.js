@@ -106,6 +106,9 @@ function addOptions(select, value, text) {
 
 
 
+
+
+
 function getXMLHttpRequest() {
 	var xhr = null;
 	
