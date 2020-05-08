@@ -19,8 +19,19 @@ check["emialInput"] = function(item) {
         return true;
     }
     else {
-        error.innerText = "";
-        return false;
+        var query = `SELECT * FROM user WHERE email = "${email}";`;
+        getData(query, (data) => {
+            var error = document.getElementById("emialInputErr");
+            if (data == false)
+                error.innerText = "";
+            else
+                error.innerText = "*adresse email existe déjà";
+        })
+
+        if (error.innerText === "")
+            return false;
+        else
+            return true;
     }
 };
 
@@ -50,15 +61,52 @@ check["prenomInput"] = check["nomInput"];
 (function () {
     
     document.querySelectorAll(".ftextInput").forEach(item => {
+        console.log(item.id);
         item.addEventListener("keyup", () => check[item.id](item));
     });
 
-    var choixCours = document.querySelector(".choixCours");
-    choixCours.addEventListener("click", choixCoursOnClick);
+    
+
+    var choixCours = document.getElementById("choixCoursBtn");
+    choixCours.addEventListener("click", checkUserInfo);
 })();
 
+function checkUserInfo(e) {
+    var isAnyError = false;
+    var objValues = {};
+    document.querySelectorAll(".ftextInput").forEach(item => {
+        if (check[item.id](item))
+            isAnyError = true;
+        else 
+            objValues[item.id] = item.value;
+                    
+    });
 
-function choixCoursOnClick(e) {
+
+    
+
+    if (!isAnyError) {
+        objValues["etablInput"] = document.getElementById("etablInput").value;
+
+        var cdChoice = "";
+        var finalites = ["I", "R", "G"];
+        document.querySelectorAll(".cbFinalite").forEach((element, index) => {
+            if (element.checked)
+                cdChoice = cdChoice + finalites[index];
+            else
+                cdChoice = cdChoice + "-";
+
+        });
+        objValues["cbFinalite"] = cdChoice;
+
+        afficheTableCours(e, objValues);
+    }
+}
+
+
+
+
+function afficheTableCours(e, userData) {
     document.getElementById("formHolder").style.display = "none";
     document.getElementById("chxBtnHolder").style.display = "none";
     document.getElementById("tblCoursHolder").style.display = "block";
@@ -78,15 +126,124 @@ function choixCoursOnClick(e) {
     formPanel.classList.add("bigButton");
 
     choixCours.classList.remove("bigButton");
-    // choixCours.style.height = "500px";
-    // var rr = 
     choixCours.style.height = "600px";
     choixCours.style.cursor = "default";
     
 
-    choixCours.removeEventListener("click", choixCoursOnClick);
+    choixCours.removeEventListener("click", checkUserInfo);
     formPanel.addEventListener("click", formPanelOnClick);
+
+    
+    document.getElementById("submitBtn").addEventListener("click", () => {
+        
+        // console.log(userData);
+        var selectedValues = [];
+
+        for(var i = 1; i <= 4; i++) {
+            var className = `.tblCoursG${i}Selected`;
+            document.querySelectorAll(className).forEach(element => selectedValues.push(element.lastChild.innerHTML));
+        }
+
+        var queryWhere = ``;
+        for (var i = 0; i < selectedValues.length; i++) {
+            queryWhere += ` horraire.idHorraire = ${selectedValues[i]}`
+            if (i != selectedValues.length - 1)
+                queryWhere += ` OR`;
+        }
+
+        var query = 
+        `SELECT cours.id, cours.intitule, cours.nbrPlaces
+        FROM horraire LEFT JOIN cours ON (horraire.idCours = cours.id)
+        WHERE ${queryWhere}
+        ORDER BY cours.id;`;
+
+        // console.log(query);
+
+
+        getData(query, (data) => {
+            var emptyCoursList = [];
+            // console.log(data);
+            for (var i = 0; i < data.length; i++) {
+                if(data[i]["nbrPlaces"] == 0) {
+                    emptyCoursList.push(data[i]["intitule"])
+                }
+            }
+
+            // console.log(data);
+            
+            if (emptyCoursList === undefined || emptyCoursList.length == 0) {
+                
+                insertUser(userData, data);
+
+
+
+                // var updateQuery = "";
+                for (var i = 0; i < data.length; i++) {
+                    var updateQuery = `UPDATE cours SET nbrPlaces = nbrPlaces - 1 WHERE cours.id = ${data[i]["id"]}`;
+                    // setData(updateQuery);
+                }
+            }
+            else {
+                alert(`Pas de places pour le(s) cours : ${emptyCoursList}`);
+            }
+
+        });
+
+    });
 }
+
+
+function insertUser(userData, choixData) {
+    
+    querySelect = "SELECT id FROM user ORDER BY id";
+    var idUser;
+    getData(querySelect, (data) => {
+        
+        if (data == false)
+            idUser = 1;
+        else
+            idUser = parseInt(data[0]["id"]) + 1;
+        
+       
+        var queryInsertUser = `INSERT INTO user(id, nom, prenom, email, etablissement, finalite) \
+            VALUES (${idUser}, "${userData["nomInput"]}", "${userData["prenomInput"]}", \
+            "${userData["emialInput"]}", "${userData["etablInput"]}", "${userData["cbFinalite"]}");`;
+        
+        
+
+        var queryValues = ``;
+        for (var i = 0; i < choixData.length; i++) {
+            queryValues += `(${idUser}, ${choixData[i]["id"]})`;
+            if (i != choixData.length - 1)
+                queryValues += `, `;
+        }
+        var queryInsertChoix = `INSERT INTO choix(idUser, idHorraire) VALUES ${queryValues}`;
+
+
+        var queryList = [queryInsertUser, queryInsertChoix];
+        for (var i = 0; i < choixData.length; i++) {
+            var updateQuery = `UPDATE cours SET nbrPlaces = nbrPlaces - 1 WHERE cours.id = ${choixData[i]["id"]}`;
+            queryList.push(updateQuery);
+            // setData(updateQuery);
+        }
+        
+        // console.log(queryList);
+        setData(queryList);
+
+    });
+
+    // console.log(idUser);
+
+    
+   
+}
+
+
+
+
+
+
+
 
 function formPanelOnClick(e) {
     document.getElementById("chxBtnHolder").style.display = "block";
@@ -106,7 +263,6 @@ function formPanelOnClick(e) {
 
     var choixCours = document.querySelector(".choixCours");
     choixCours.style.height = "80px";
-    // choixCours.style.backgroundColor = "rgb(236, 22, 68)";
     choixCours.classList.add('bigButton');
     choixCours.style.cursor = "pointer";
 
@@ -114,6 +270,6 @@ function formPanelOnClick(e) {
     formPanel.classList.remove('bigButton');
 
     formPanel.removeEventListener("click", formPanelOnClick);
-    choixCours.addEventListener("click", choixCoursOnClick);
+    choixCours.addEventListener("click", checkUserInfo);
 
 }

@@ -27,7 +27,7 @@ function openTables() {
         if (i>= length)
             return;
 
-        var header = headers[i]
+        var header = headers[i];
         var url = "php/getData.php?Query="+queries[header];
         xhr.open("GET", url, true);
 

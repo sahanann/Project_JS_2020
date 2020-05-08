@@ -1,31 +1,24 @@
 (function () {
+
+	var query = "SELECT cours.bloc, cours.intitule, cours.type, duree.debut, duree.fin, cours.finalite, duree.categorie, jours.jour, horraire.idHorraire \
+	FROM cours, horraire, duree, jours \
+	WHERE horraire.idCours = cours.id \
+	AND horraire.idDuree = duree.id \
+	AND horraire.idJour = jours.id \
+	ORDER BY jours.jour, duree.debut;";
+
+	console.log(query);
+
+	getData(query, (data) => {
+		if (data != false) 
+			createTable(data);
+		else
+			alert("probleme de serveur");
+	});
     
-    openTableHorraire();
 })();
 
-function openTableHorraire() {
-    var xhr = getXMLHttpRequest();
 
-    xhr.onreadystatechange = function () {
-		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-			var response = xhr.responseText;
-
-			if (response == "ERRSQL")
-				alert("Err conexion bd");
-			else if (response == "NOTHING") {
-                alert("No data found");
-			}
-			else if (response == "ERRQUERY")
-				alert("Err Query");
-			else {
-				createTable(JSON.parse(xhr.responseText));
-			}
-		}
-    }
-
-    xhr.open("GET", "php/tableCours.php",true);
-    xhr.send();
-}
 
 function createTable(obj) {
 	var headers = [];
@@ -134,7 +127,7 @@ function tableRowOnClick(e) {
         row = row.parentNode;
 	}
 
-	console.log(row.lastChild);
+	// console.log(row.lastChild);
 
 	var tableNum = row.classList[2];
 	var groupe = row.classList[1];
@@ -158,7 +151,7 @@ function tableRowOnClick(e) {
 		selectedCount[currentTable]++;
 	}
 
-	console.log(selectedCount[currentTable]);
+	// console.log(selectedCount[currentTable]);
 	if (selectedCount[currentTable] > 0 && selectedCount[currentTable] < minChoice) {
 		document.getElementById("datesSelector").disabled = true;
 		document.getElementById("submitBtn").disabled = true;
@@ -177,23 +170,3 @@ function tableRowOnClick(e) {
 
 
 
-function getXMLHttpRequest() {
-	var xhr = null;
-	
-	if (window.XMLHttpRequest || window.ActiveXObject) {
-		if (window.ActiveXObject) {
-			try {
-				xhr = new ActiveXObject("Msxml2.XMLHTTP");
-			} catch(e) {
-				xhr = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-		} else {
-			xhr = new XMLHttpRequest(); 
-		}
-	} else {
-		alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
-		return null;
-	}
-	
-	return xhr;
-}

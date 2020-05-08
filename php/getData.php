@@ -1,9 +1,7 @@
 <?php 
-
     include 'db.php';
 
     $query = !empty($_GET['Query']) ? $_GET['Query']: NULL;
-
 
     $result = mysqli_query($con, $query);
 
