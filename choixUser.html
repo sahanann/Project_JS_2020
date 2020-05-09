@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style/style.css">
+    <link rel="stylesheet" href="style/tableCours.css">
+
+    <title>Document</title>
+</head>
+<body>
+    <div id="confBox">
+        <div id="confBoxMsgTitle">Hello</div>
+        <div id="confBoxMsg">Hello</div>
+    </div>
+
+    <div class="userChoixTable">
+        <table class="tabelCoursHorr">
+            <!-- <thead> -->
+                <tr>
+                    <th rowspan="1" colspan="3">
+                        Horaire
+                    </th>
+                    <th rowspan="2" colspan="1" >
+                        Bloc
+                    </th>
+                    <th width="400" rowspan="2" colspan="1">
+                        Intitulé de cours
+                    </th>
+                    <th rowspan="2" colspan="1">
+                        Type
+                    </th>
+                    <th rowspan="1" colspan="3" >
+                        Finalités concernées
+                    </th>
+                </tr>
+                <tr>
+                    <th>Date</th>
+                    <th>Début</th>
+                    <th>Fin</th>
+                    <th>Indus</th>
+                    <th>Réseau</th>
+                    <th>Gestion</th>
+                </tr>
+                
+            <!-- </thead> -->
+            <tr id="coursTableData">
+            </tr>
+            <!-- <tbody></tbody> -->
+        </table>
+        
+    </div>
+
+    <script src="script/server.js"></script>
+    <script src="script/choixUser.js"></script>
+    
+</body>
+</html>

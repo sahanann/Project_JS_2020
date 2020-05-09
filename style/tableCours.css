@@ -7,7 +7,7 @@
     margin: auto;
 }
 
-#tblCoursHolder table, th, td {
+table, th, td {
     border: 1px solid rgb(235, 235, 235);
     border-collapse: collapse;
     padding: 4px;
@@ -15,13 +15,13 @@
     border-collapse: collapse;
 }
 
-#tblCoursHolder table {
+table {
     width: 100%;
     border-radius: 10px;
     margin-left: 20px;
 }
 
-#tblCoursHolder th {
+th {
     /* text-align: left; */
     background-color: rgba(0, 0, 0, 0.027);
     color: rgb(0, 0, 0);

@@ -1,37 +1,71 @@
 
-
-function getData(query, callBack) {
-    var url = "php/getData.php?Query="+query;
-
-    xhr = getXMLHttpRequest();
-    xhr.open("GET", url, true);
-    
-    xhr.onreadystatechange = function () {
-		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-			var response = xhr.responseText;
-
-			if (response == "ERRSQL")
-				alert("Err conexion bd");
-			else if (response == "NOTHING") 
-                callBack(false);
-			else if (response == "ERRQUERY")
-				alert("Err Query");
-			else 
-                callBack(JSON.parse(xhr.responseText));
-		}
-    }
-
-    xhr.send();
-}
-
-function setData(queryList) {
-    // var url = "php/insertData.php?Query="+query;
-
+function getData(queries, callBacks) {
     xhr = getXMLHttpRequest();
 
     (function loop(i, length) {
         if (i>= length)
             return;
+        
+        var url = "php/getData.php?Query="+queries[i];
+        xhr.open("GET", url, true);
+
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                var response = xhr.responseText;
+    
+                if (response == "ERRSQL")
+                    window.open(`message.html?code=0`, `_self`);
+                else if (response == "NOTHING") 
+                    callBacks[i](false);
+                else if (response == "ERRQUERY")
+                    window.open(`message.html?code=0`, `_self`);
+                else 
+                    callBacks[i](JSON.parse(xhr.responseText));
+
+                loop(i + 1, length);
+            }
+        }
+
+        xhr.send();
+
+    })(0, queries.length);
+}
+
+
+// function getData(query, callBack) {
+//     var url = "php/getData.php?Query="+query;
+
+//     xhr = getXMLHttpRequest();
+//     xhr.open("GET", url, true);
+    
+//     xhr.onreadystatechange = function () {
+// 		if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+// 			var response = xhr.responseText;
+
+// 			if (response == "ERRSQL")
+// 				alert("Err conexion bd");
+// 			else if (response == "NOTHING") 
+//                 callBack(false);
+// 			else if (response == "ERRQUERY")
+// 				alert("Err Query");
+// 			else 
+//                 callBack(JSON.parse(xhr.responseText));
+// 		}
+//     }
+
+//     xhr.send();
+// }
+
+function setData(queryList, msg) {
+    xhr = getXMLHttpRequest();
+
+    (function loop(i, length) {
+        if (i>= length) {
+            if (msg)
+                window.open(`message.html?code=1`, `_self`);
+            return;
+        }
+            
         
         var url = "php/insertData.php?Query="+queryList[i];
         xhr.open("GET", url, true);
@@ -41,7 +75,8 @@ function setData(queryList) {
                 var response = xhr.responseText;
     
                 if (response == "NOPE") {
-                    alert(`Problème avec le serveur ${response}`);
+                    window.open(`message.html?code=0`, `_self`);
+                    return;
                 }
                 // if (response == "OK")
                 //     isSet = true;

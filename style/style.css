@@ -48,3 +48,36 @@ body {
 #tabs3 {
     border-radius: 0 23px 23px 0;
 }
+
+
+#confBox {
+    display: block;
+    width: 600px;
+    /* height: 300px; */
+    margin: auto;
+    margin-top: 60px;
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 30px;
+    text-align: center;
+    
+    padding-top: 20px;
+}
+
+#confBoxMsgTitle {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+#confBoxMsg {
+    font-size: 20px;
+}
+
+.userChoixTable {
+    /* background-color: aqua; */
+    margin-top: 30px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    padding: 20px;
+}
+

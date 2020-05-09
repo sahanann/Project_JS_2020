@@ -1,20 +1,29 @@
 (function () {
 
-	var query = "SELECT cours.bloc, cours.intitule, cours.type, duree.debut, duree.fin, cours.finalite, duree.categorie, jours.jour, horraire.idHorraire \
+	
+
+	// url = require('url');
+	// var url = new URL(window.location.href);
+
+	// http://web2020/projet_JS_2020/user.html?year=2017&month=february
+	// console.log(url.searchParams.get("month"));
+	// console.log(`${url.origin}/message.html`);
+
+	var query = ["SELECT cours.bloc, cours.intitule, cours.type, duree.debut, duree.fin, cours.finalite, duree.categorie, jours.jour, horraire.idHorraire \
 	FROM cours, horraire, duree, jours \
 	WHERE horraire.idCours = cours.id \
 	AND horraire.idDuree = duree.id \
 	AND horraire.idJour = jours.id \
-	ORDER BY jours.jour, duree.debut;";
+	ORDER BY jours.jour, duree.debut;"];
 
 	console.log(query);
 
-	getData(query, (data) => {
+	getData(query, [(data) => {
 		if (data != false) 
 			createTable(data);
 		else
 			alert("probleme de serveur");
-	});
+	}]);
     
 })();
 
@@ -36,9 +45,9 @@ function createTable(obj) {
 
 	var tableBase = document.querySelector(".tabelCoursHorr");
 
-	var datesList = [];
+	// var datesList = [];
 	var leDate = obj[0]["jour"];
-	datesList.push(leDate);
+	// datesList.push(leDate);
 	addElemToSelect(leDate);
 
 	
@@ -56,12 +65,12 @@ function createTable(obj) {
 			if (leDate != obj[indx]["jour"]) {
 				leDate = obj[indx]["jour"];
 				addElemToSelect(leDate);
-				datesList.push(leDate);
+				// datesList.push(leDate);
 				break;
 			}
 			else {
 				tr = table.insertRow(-1);
-				tr.classList.add("tableRowStyle");
+				// tr.classList.add("tableRowStyle");
 				tr.classList.add(tableGrpClass[parseInt(obj[indx]["categorie"]) - 1]);
 				tr.classList.add("tableNum" + xx);
 				tr.addEventListener("click", tableRowOnClick);

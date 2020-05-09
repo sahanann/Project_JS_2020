@@ -49,17 +49,17 @@
                         <label class="filedName">Les orientations qui vous intéressent</label>
                         <div class="checkBoxes">
                             <label class="container">Informatique de gestion
-                                <input type="checkbox">
+                                <input class="cbFinalite" type="checkbox">
                                 <span class="checkmark"></span>
                             </label>
         
                             <label class="container">Informatique et système : réseaux et télécommunications
-                                <input type="checkbox">
+                                <input class="cbFinalite" type="checkbox">
                                 <span class="checkmark"></span>
                             </label>
         
                             <label class="container">Informatique et système : informatique industrielle
-                                <input type="checkbox">
+                                <input class="cbFinalite" type="checkbox">
                                 <span class="checkmark"></span>
                             </label>
                         </div>
@@ -133,7 +133,7 @@
 
             
             <div class="choseDateHolder">
-                <button id="submitBtn">Submit</button>
+                <button id="submitBtn" disabled>Submit</button>
             </div>
 
         
@@ -150,6 +150,9 @@
     <script src="script/formVerification.js"></script>
     <script src="script/tableCours.js"></script>
     <script src="script/customSelect.js"></script>
+    <script src="script/fctUtile.js"></script>
+    <script type="module" src="script/sendEmail.js"></script>
+    <script src="https://smtpjs.com/v3/smtp.js"></script>
     </body>
 </head>
 </html>

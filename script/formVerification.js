@@ -19,14 +19,15 @@ check["emialInput"] = function(item) {
         return true;
     }
     else {
-        var query = `SELECT * FROM user WHERE email = "${email}";`;
-        getData(query, (data) => {
+        var query = [`SELECT * FROM user WHERE email = "${email}";`];
+        // var callBack = function(data)
+        getData(query, [(data) => {
             var error = document.getElementById("emialInputErr");
             if (data == false)
                 error.innerText = "";
             else
                 error.innerText = "*adresse email existe déjà";
-        })
+        }]);
 
         if (error.innerText === "")
             return false;
@@ -152,15 +153,15 @@ function afficheTableCours(e, userData) {
         }
 
         var query = 
-        `SELECT cours.id, cours.intitule, cours.nbrPlaces
+        [`SELECT cours.id, cours.intitule, cours.nbrPlaces
         FROM horraire LEFT JOIN cours ON (horraire.idCours = cours.id)
         WHERE ${queryWhere}
-        ORDER BY cours.id;`;
+        ORDER BY cours.id;`];
 
         // console.log(query);
 
-
-        getData(query, (data) => {
+        console.log(query);
+        getData(query, [(data) => {
             var emptyCoursList = [];
             // console.log(data);
             for (var i = 0; i < data.length; i++) {
@@ -172,22 +173,13 @@ function afficheTableCours(e, userData) {
             // console.log(data);
             
             if (emptyCoursList === undefined || emptyCoursList.length == 0) {
-                
                 insertUser(userData, data);
-
-
-
-                // var updateQuery = "";
-                for (var i = 0; i < data.length; i++) {
-                    var updateQuery = `UPDATE cours SET nbrPlaces = nbrPlaces - 1 WHERE cours.id = ${data[i]["id"]}`;
-                    // setData(updateQuery);
-                }
             }
             else {
                 alert(`Pas de places pour le(s) cours : ${emptyCoursList}`);
             }
 
-        });
+        }]);
 
     });
 }
@@ -195,21 +187,22 @@ function afficheTableCours(e, userData) {
 
 function insertUser(userData, choixData) {
     
-    querySelect = "SELECT id FROM user ORDER BY id";
+    querySelect = ["SELECT id FROM user ORDER BY id"];
     var idUser;
-    getData(querySelect, (data) => {
+    getData(querySelect, [(data) => {
         
         if (data == false)
             idUser = 1;
         else
-            idUser = parseInt(data[0]["id"]) + 1;
+            idUser = parseInt(data[data.length - 1]["id"]) + 1;
+            
         
-       
         var queryInsertUser = `INSERT INTO user(id, nom, prenom, email, etablissement, finalite) \
-            VALUES (${idUser}, "${userData["nomInput"]}", "${userData["prenomInput"]}", \
+            VALUES ("${idUser}", "${userData["nomInput"]}", "${userData["prenomInput"]}", \
             "${userData["emialInput"]}", "${userData["etablInput"]}", "${userData["cbFinalite"]}");`;
         
-        
+        console.log(`id uder = ${idUser}`);
+        console.log(`query user = ${queryInsertUser}`);
 
         var queryValues = ``;
         for (var i = 0; i < choixData.length; i++) {
@@ -224,17 +217,12 @@ function insertUser(userData, choixData) {
         for (var i = 0; i < choixData.length; i++) {
             var updateQuery = `UPDATE cours SET nbrPlaces = nbrPlaces - 1 WHERE cours.id = ${choixData[i]["id"]}`;
             queryList.push(updateQuery);
-            // setData(updateQuery);
         }
+
         
-        // console.log(queryList);
-        setData(queryList);
+        setData(queryList, true);
 
-    });
-
-    // console.log(idUser);
-
-    
+    }]);
    
 }
 
