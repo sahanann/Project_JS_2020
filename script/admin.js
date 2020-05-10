@@ -1,18 +1,35 @@
-(function () {
+(() => {
 
-    openTables();
+    var addOptions = (select, value, text) => {
+        var option = document.createElement("option");
+        option.value = value;
+        option.text = text;
+        select.add(option);
+    }
 
-    
-    // alert("test");
-    var ajoutSlider = document.getElementById("ajoutProfBtn");
-    ajoutSlider.addEventListener("click", () => {
-        // location.reload();
-    })
-})();
+    var onExportBtnClicked = (data) => {
+        let csvContent = "data:text/csv;charset=utf-8,";
+        data.forEach(element => {
+            var row = Object.values(element).join(";");
+            csvContent += row + "\r\n";
+        });
 
+        var encodedUri = encodeURI(csvContent);
+        var link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "my_data.csv");
+        document.body.appendChild(link); // Required for FF
 
+        link.click();
+    }
 
-function openTables() {
+    /**
+     * - 0 : ajout des données dans le select de nomCoursSelect
+     * - 1 : ajout des données dans le select de nomProfSelect
+     * - 2 : ajout des données dans le select de jourSelect
+     * - 3 : ajout des données dans le select de heureDebutSelect
+     * - 4 : ajout des données des utilisateurs et leurs choix des cours
+    */
     var editSelect = new Array(5);
 
     editSelect[0] = function(data) {
@@ -52,7 +69,9 @@ function openTables() {
 
 
     editSelect[4] = function(data) {
-        console.log(data);
+        
+        document.getElementById("exportListBtn").addEventListener("click", () => onExportBtnClicked(data));
+        
         var addCell = (tr, value) => {
             var tabCell = tr.insertCell(-1);
             tabCell.innerHTML = value;
@@ -126,21 +145,7 @@ function openTables() {
     
     getData(queries, editSelect);
 
-}
-
-
-
-
-
-
-
-
-function addOptions(select, value, text) {
-    var option = document.createElement("option");
-    option.value = value;
-    option.text = text;
-    select.add(option);
-}
+})();
 
 
 
@@ -152,23 +157,11 @@ function addOptions(select, value, text) {
 
 
 
-function getXMLHttpRequest() {
-	var xhr = null;
-	
-	if (window.XMLHttpRequest || window.ActiveXObject) {
-		if (window.ActiveXObject) {
-			try {
-				xhr = new ActiveXObject("Msxml2.XMLHTTP");
-			} catch(e) {
-				xhr = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-		} else {
-			xhr = new XMLHttpRequest(); 
-		}
-	} else {
-		alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
-		return null;
-	}
-	
-	return xhr;
-}
+
+
+
+
+
+
+
+

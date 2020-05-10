@@ -230,11 +230,45 @@
 
 
 
-            <!-- <button id="ajoutHorBtn" class="myActionButton">Ajouter</button> -->
+            <button id="exportListBtn" class="myActionButton">Exporter</button>
         </div>
 
 
 
+        <div class="formBoxHolder">
+            <div class="bigBoxHeader">Ajouter un étudiant</div>
+
+            <div class="AjoutCoursBox">
+
+                <div class="fieldGroup">
+                    <label for="emailEtudInput" class="filedName">Email</label>
+                    <input autocomplete="new-password" type="text" placeholder="Entrez l'email' de l'étudiant" id="emailEtudInput">
+                    <span id="emailEtudInputErr"></span>
+                </div>
+
+                <div class="fieldGroup">
+                    <label for="nomEtudInput" class="filedName">Nom</label>
+                    <input autocomplete="new-password" type="text" placeholder="Entrez le nom de l'étudiant" id="nomEtudInput">
+                    <span id="nomEtudInputErr"></span>
+                </div>
+
+                <div class="fieldGroup">
+                    <label for="prenomEtudInput" class="filedName">Prenom</label>
+                    <input autocomplete="new-password" type="text" placeholder="Entrez le prenom de l'étudiant" id="prenomEtudInput">
+                    <span id="prenomEtudInputErr"></span>
+                </div>
+
+                <div class="fieldGroup">
+                    <label for="nbreCoursInput" class="filedName">nombre de cours</label>
+                    <input autocomplete="new-password" type="text" placeholder="Entrez le nombre de cours" id="nbreCoursInput">
+                    <span id="nbreCoursInputErr"></span>
+                </div>
+
+            </div>
+
+
+            <button id="ajoutHorBtn" class="myActionButton">Ajouter</button>
+        </div>
         
         
 
@@ -244,6 +278,7 @@
     <script src="script/server.js"></script>
     <script src="script/admin.js"></script>
     <script src="script/ajoutCours.js"></script>
+    <script src="script/fctUtile.js"></script>
     </body>
 </head>
 </html>
