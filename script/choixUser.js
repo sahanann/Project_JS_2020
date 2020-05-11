@@ -29,35 +29,10 @@
                         var tabCell = tr.insertCell(-1);
                         tabCell.innerHTML = value;
                     }
-                    var headers = ["jour", "debut", "fin", "bloc", "intitule", "type", "finalite"];
 
-                    var table = document.querySelector(".tabelCoursHorr");
-                    for (var i = 0; i < data.length; i++) {
-                        tr = table.insertRow(-1);
-
-                        for (var j = 0; j < headers.length; j++) {
-                            if (headers[j] === "type") {
-                                if (data[i]["type"] == 1) 
-                                    addCell(tr, "Théorie");
-                                else if (data[i]["type"] == 2)
-                                    addCell(tr, "Labo");
-                                else
-                                    addCell(tr, "TFE");
-                            }
-                            else if (headers[j] === "finalite") {
-                                var str = data[i]["finalite"];
-                                var final = ["I", "R", "G"];
-                                for (var x = 0; x < 3; x++)
-                                    if (str.charAt(x) === final[x])
-                                        addCell(tr, " x ");
-                                    else 
-                                        addCell(tr, "   ");
-                            }
-                            else {
-                                addCell(tr, data[i][headers[j]]);
-                            }
-                        }
-                    }
+                    drawTable.data = data;
+                    drawTable.headers = ["jour", "debut", "fin", "bloc", "intitule", "type", "finalite"];
+                    drawTable.buildRows(document.querySelector(".tabelCoursHorr"));
                 }])
             }
         }])

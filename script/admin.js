@@ -78,48 +78,30 @@
         }
         
         var tableHolder = document.getElementById("userTableHolder");
-        var curUserID = data[0]["id"];
-        var headers = ["jour", "debut", "fin", "bloc", "intitule", "type", "finalite"];
 
         var tableBase = document.querySelector(".userChoiceTable");
 
-        var indx = 0;
-        for (var x = 0; indx < data.length; x++) {
+        drawTable.checkItem = data[0]["id"];
+        drawTable.data = data;
+        drawTable.check = () => {
+            if (drawTable.checkItem != drawTable.data[drawTable.index]["id"]) {
+                drawTable.checkItem = drawTable.data[drawTable.index]["id"];
+                return false;
+            }
+            else
+                return true;
+        }
+        drawTable.headers = ["jour", "debut", "fin", "bloc", "intitule", "type", "finalite"];
+
+        
+        for (var x = 0; drawTable.index < data.length; x++) {
             var table = tableBase.cloneNode(true);
             table.style.display = null;
-            var username = `${data[indx]["nom"]} ${data[indx]["prenom"]}`;
-            console.log(username);
+            var username = `${data[drawTable.index]["nom"]} ${data[drawTable.index]["prenom"]}`;
+            
+            
+            drawTable.buildRows(table);
 
-
-            for (; indx < data.length; indx++) {
-                if (curUserID != data[indx]["id"]) {
-                    curUserID = data[indx]["id"];
-                    break;
-                }
-
-                tr = table.insertRow(-1);
-                for (var j = 0; j < headers.length; j++) {
-                    if (headers[j] === "type") {
-						if (data[indx]["type"] == 1) 
-							addCell(tr, "Théorie");
-						else if (data[indx]["type"] == 2)
-							addCell(tr, "Labo");
-						else
-							addCell(tr, "TFE");
-                    }
-                    else if (headers[j] === "finalite") {
-                        var str = data[indx]["finalite"];
-						var final = ["I", "R", "G"];
-						for (var x = 0; x < 3; x++)
-							if (str.charAt(x) === final[x])
-								addCell(tr, " x ");
-							else 
-								addCell(tr, "   ");
-                    }
-                    else 
-                        addCell(tr, data[indx][headers[j]]);
-                }
-            }
             var nameElem = document.createElement("DIV");
             nameElem.innerHTML = username;
             nameElem.setAttribute("class", "userNameHolder");

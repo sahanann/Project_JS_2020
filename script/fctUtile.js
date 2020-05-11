@@ -1,10 +1,3 @@
-(function () {
-    // callMessagePage(1);
-    // var url = new URL(window.location.href);
-
-    // console.log(url);
-})();
-
 
 function callMessagePage(code) {
     
@@ -82,15 +75,59 @@ var champsVerif = {
 };
 
 
-// var drawTable = {
-//     headers: [],
+var drawTable = {
+    data: {},
+    headers: [],
     
-//     table,
-//     group,
+    table: "",
+    checkItem: true,
+    check: () => true,
+    index: 0,
+    createRow: (table) => table.insertRow(-1),
+    buildCustomCell: () => {},
 
-//     buildRow:
     
-// }
+    buildRows: (table) => {
+        for (; drawTable.index < drawTable.data.length; drawTable.index++) {
+            if(!drawTable.check()) {
+                // drawTable.index++;
+                break;
+            }
+            var tr = drawTable.createRow(table);
+            drawTable.buildCells(drawTable.index, tr);
 
-// drawTable.headers = "hello";
-// drawTable.run();
+        }
+    },
+
+    buildCells: (index, tr) => {
+        for (var i = 0; i < drawTable.headers.length; i++) {
+            if (drawTable.headers[i] === "type") {
+                if (drawTable.data[index]["type"] == 1) 
+                    drawTable.addCell(tr, "Théorie");
+                else if (drawTable.data[index]["type"] == 2)
+                    drawTable.addCell(tr, "Labo");
+                else
+                    drawTable.addCell(tr, "TFE");
+            }
+            else if (drawTable.headers[i] === "finalite") {
+                var str = drawTable.data[index]["finalite"];
+                var final = ["I", "R", "G"];
+                for (var x = 0; x < 3; x++)
+                    if (str.charAt(x) === final[x])
+                        drawTable.addCell(tr, " x ");
+                    else 
+                        drawTable.addCell(tr, "   ");
+                
+                drawTable.buildCustomCell(tr);
+            }
+            else
+                drawTable.addCell(tr, drawTable.data[index][drawTable.headers[i]]);
+        }
+    },
+
+    addCell: (tr, value) => {
+        var tabCell = tr.insertCell(-1);
+        tabCell.innerHTML = value;
+    }
+    
+}

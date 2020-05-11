@@ -14,25 +14,43 @@
 	var currentTable = 0;
 
 
-	function addCell(tr, value) {
-		var tabCell = tr.insertCell(-1);
-		tabCell.innerHTML = value;
-	}
-
-
-	function createTable(obj) {
-		var headers = ["bloc", "intitule", "type", "debut", "fin", "finalite", "categorie", "jour", "idHorraire"];
+	function createTable(data) {
 		
 		var tableGrpClass = ["tblCoursG1", "tblCoursG2", "tblCoursG3", "tblCoursG4"];
 	
 		var tableBase = document.querySelector(".tabelCoursHorr");
 	
-		var leDate = obj[0]["jour"];
-		addElemToSelect(leDate);
-	
+		drawTable.checkItem = data[0]["jour"];
+        drawTable.data = data;
+        drawTable.check = () => {
+            if (drawTable.checkItem != drawTable.data[drawTable.index]["jour"]) {
+                drawTable.checkItem = drawTable.data[drawTable.index]["jour"];
+                return false;
+            }
+            else
+                return true;
+        }
+		drawTable.headers = ["bloc", "intitule", "type", "debut", "fin", "finalite"];
+		drawTable.buildCustomCell = (tr) => {
+			var strId = drawTable.data[drawTable.index]["idHorraire"];
+			var tabCell = tr.insertCell(-1);
+			tabCell.setAttribute("class", "invisibleCell");
+			tabCell.innerHTML = strId;
+		}
+
+		drawTable.createRow = (table) => {
+			console.log(tableGrpClass[parseInt(drawTable.data[drawTable.index]["categorie"]) - 1]);
+			var tr = table.insertRow(-1)
+			tr.classList.add("tableRowStyle");
+			tr.classList.add(tableGrpClass[parseInt(drawTable.data[drawTable.index]["categorie"]) - 1]);
+			tr.classList.add("tableNum" + xx);
+			tr.addEventListener("click", tableRowOnClick);
+			return tr;
+		}
 		
-		var indx = 0;
-		for (var xx = 0; indx < obj.length; xx++) {
+
+		for (var xx = 0; drawTable.index < data.length; xx++) {
+			leDate = data[drawTable.index]["jour"];
 			var table = tableBase.cloneNode(true);
 			var idString = "tableCours" + xx;
 			table.setAttribute("id", idString);
@@ -40,51 +58,10 @@
 				table.style.display = null;
 			else
 				table.style.display = "none";
-	
-			for (;indx < obj.length; indx++) {
-				if (leDate != obj[indx]["jour"]) {
-					leDate = obj[indx]["jour"];
-					addElemToSelect(leDate);
-					break;
-				}
-				else {
-					tr = table.insertRow(-1);
-					tr.classList.add("tableRowStyle");
-					tr.classList.add(tableGrpClass[parseInt(obj[indx]["categorie"]) - 1]);
-					tr.classList.add("tableNum" + xx);
-					tr.addEventListener("click", tableRowOnClick);
 			
-					for (var j = 0; j < headers.length - 3; j++) {
-						
-						if (headers[j] === "type") {
-							if (obj[indx]["type"] == 1) 
-								addCell(tr, "Théorie");
-							else if (obj[indx]["type"] == 2)
-								addCell(tr, "Labo");
-							else
-								addCell(tr, "TFE");
-						}
-						else if (headers[j] === "finalite") {
-							var str = obj[indx]["finalite"];
-							var final = ["I", "R", "G"];
-							for (var x = 0; x < 3; x++)
-								if (str.charAt(x) === final[x])
-									addCell(tr, " x ");
-								else 
-									addCell(tr, "   ");
-							
-							var strId = obj[indx]["idHorraire"];
-							var tabCell = tr.insertCell(-1);
-							tabCell.setAttribute("class", "invisibleCell");
-							tabCell.innerHTML = strId;
-						}
-						else {
-							addCell(tr, obj[indx][headers[j]]);
-						}
-					}
-				}
-			}
+			drawTable.buildRows(table);
 	
+			addElemToSelect(leDate);
 			document.getElementById("tblCoursHolder").appendChild(table);
 		}	
 	}
@@ -127,7 +104,7 @@
 			document.getElementById("submitBtn").disabled = false;
 		}
 	}
-	
+
 
 
 
