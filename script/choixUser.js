@@ -24,12 +24,6 @@
                   ORDER BY jours.jour, duree.debut`];
                 
                 getData(query, [(data) => {
-                    console.log(data);
-                    var addCell = (tr, value) => {
-                        var tabCell = tr.insertCell(-1);
-                        tabCell.innerHTML = value;
-                    }
-
                     drawTable.data = data;
                     drawTable.headers = ["jour", "debut", "fin", "bloc", "intitule", "type", "finalite"];
                     drawTable.buildRows(document.querySelector(".tabelCoursHorr"));

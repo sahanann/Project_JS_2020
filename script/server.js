@@ -5,6 +5,8 @@ function getData(queries, callBacks) {
     (function loop(i, length) {
         if (i>= length)
             return;
+
+        // console.log(queries[i]);
         
         var url = "php/getData.php?Query="+queries[i];
         xhr.open("GET", url, true);
@@ -14,11 +16,13 @@ function getData(queries, callBacks) {
                 var response = xhr.responseText;
     
                 if (response == "ERRSQL")
-                    window.open(`message.html?code=0`, `_self`);
+                alert("error get");
+                    // window.open(`message.html?code=0`, `_self`);
                 else if (response == "NOTHING") 
                     callBacks[i](false);
                 else if (response == "ERRQUERY")
-                    window.open(`message.html?code=0`, `_self`);
+                alert("error get");
+                    // window.open(`message.html?code=0`, `_self`);
                 else 
                     callBacks[i](JSON.parse(xhr.responseText));
 
@@ -38,12 +42,14 @@ function setData(queryList, msg) {
 
     (function loop(i, length) {
         if (i>= length) {
-            if (msg)
-                window.open(`message.html?code=1`, `_self`);
+            if (msg) {
+                sendEmail(msg);
+            }
+                
             return;
         }
             
-        
+        // console.log(queryList[i]);
         var url = "php/insertData.php?Query="+queryList[i];
         xhr.open("GET", url, true);
 
@@ -52,7 +58,8 @@ function setData(queryList, msg) {
                 var response = xhr.responseText;
     
                 if (response == "NOPE") {
-                    window.open(`message.html?code=0`, `_self`);
+                    alert("error set");
+                    // window.open(`message.html?code=0`, `_self`);
                     return;
                 }
                 // if (response == "OK")

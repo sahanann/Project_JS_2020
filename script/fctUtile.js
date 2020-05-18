@@ -1,9 +1,29 @@
 
-function callMessagePage(code) {
+// function callMessagePage(code) {
     
 
-    var myWindow = window.open(`message.html?code=${code}`, `_self`);
-    // myWindow.document.getElementById("confBoxMsg") = code;
+//     var myWindow = window.open(`message.html?code=${code}`, `_self`);
+//     // myWindow.document.getElementById("confBoxMsg") = code;
+// }
+
+function sendEmail(email) {
+    console.log(email);
+    var url = new URL(window.location.href);
+    var dir = url.pathname.substring(0, url.pathname.lastIndexOf('/'));
+
+	var choixUrl =  `${url.origin}${dir}/choixUser.html?email=${email}`;
+    
+    Email.send({
+        Host : "smtp.elasticemail.com",
+        Username : "jsproject2020@gmail.com",
+        Password : "F09E7119C3957658F9F17089E69C0DEB859D",
+        To : email,
+        From : "jsproject2020@gmail.com",
+        Subject : "This is the subject",
+        Body : `<h1>Inscription avec succès!</h1><p>Vos choix : ${choixUrl}</p>`
+    }).then(
+      message => window.open(`message.html?code=1`, `_self`)
+    );
 }
 
 
@@ -26,7 +46,6 @@ var champsVerif = {
             var query = [`SELECT * FROM user WHERE email = "${email}";`];
             // var callBack = function(data)
             getData(query, [(data) => {
-                var error = document.getElementById("emialInputErr");
                 if (data == false)
                     error.innerText = "";
                 else
@@ -68,6 +87,24 @@ var champsVerif = {
             var error = champsVerif.tooltip(item.id);
             error.innerText = "";
         }
+    },
+
+    numbers: (item) => {
+        var number = item.value;
+        var error = champsVerif.tooltip(item.id);
+    
+        if (number === "" || number == null) {
+            error.innerText = "*champs est requis";
+            return false;
+        }        
+        else if (!/[^0-9]/.test(number)) {
+            error.innerText = "*champ est invalide";
+            return false;
+        }
+        else {
+            error.innerText = "";
+        }
+        
     },
 
     tooltip: (val) => { return document.getElementById(val + "Err")}
@@ -130,4 +167,53 @@ var drawTable = {
         tabCell.innerHTML = value;
     }
     
+}
+
+var userObj = {
+    emialInput: "",
+    nomInput: "",
+    prenomInput: "",
+    etablInput: "",
+    cbFinalite: ""
+}
+
+function insertUser(userData, choixData, msg) {
+    
+    querySelect = ["SELECT id FROM user ORDER BY id"];
+    var idUser;
+    getData(querySelect, [(data) => {
+        
+        if (data == false)
+            idUser = 1;
+        else
+            idUser = parseInt(data[data.length - 1]["id"]) + 1;
+            
+        
+        var queryInsertUser = `INSERT INTO user(id, nom, prenom, email, etablissement, finalite) \
+            VALUES ("${idUser}", "${userData["nomInput"]}", "${userData["prenomInput"]}", \
+            "${userData["emialInput"]}", "${userData["etablInput"]}", "${userData["cbFinalite"]}");`;
+        
+        console.log(`id uder = ${idUser}`);
+        console.log(`query user = ${queryInsertUser}`);
+
+        var queryValues = ``;
+        for (var i = 0; i < choixData.length; i++) {
+            queryValues += `(${idUser}, ${choixData[i]["idHorraire"]})`;
+            if (i != choixData.length - 1)
+                queryValues += `, `;
+        }
+        var queryInsertChoix = `INSERT INTO choix(idUser, idHorraire) VALUES ${queryValues}`;
+
+
+        var queryList = [queryInsertUser, queryInsertChoix];
+        for (var i = 0; i < choixData.length; i++) {
+            var updateQuery = `UPDATE horraire SET nbrPlaceOccuper += 1 WHERE horraire.idHorraire = ${choixData[i]["idHorraire"]}`;
+            queryList.push(updateQuery);
+        }
+
+        
+        setData(queryList, msg);
+
+    }]);
+   
 }

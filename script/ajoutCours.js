@@ -1,8 +1,3 @@
-// function getErrTooltip(s) {
-//     return document.getElementById(s + "Err");
-// }
-
-
 (() => {
     document.getElementById("ajoutCoursBtn").addEventListener("click", () => {
         var check = true;
@@ -40,9 +35,9 @@
         else
             document.getElementById("cbFinaliteErr").innerText = "";
 
-        var typeCours = document.getElementById("typeCoursSelect").selectedIndex + 1;
+        var typeCours = document.getElementById("typeCoursSelect");
         var bloc = document.getElementById("groupeSelect").selectedIndex + 1;
-        var nbPlaces = typeCours == 1 ? 50 : 20;
+        var nbPlaces = typeCours.options[typeCours.selectedIndex].value;
 
         if (check != false) {
             var query = [`INSERT INTO cours (id, bloc, intitule, type, finalite, idProf, nbrPlaces) 
@@ -51,12 +46,9 @@
             // insertData(query);
         }
 
-    })
-})();
+    });
 
 
-
-(() => {
     document.getElementById("ajoutProfBtn").addEventListener("click", () => {
         var check = true;
 
@@ -74,9 +66,7 @@
         }
         
     });
-})();
 
-(() => {
 
     document.getElementById("ajoutHorBtn").addEventListener("click", () => {
         var check = true;
@@ -104,56 +94,103 @@
         }
 
     });
+
+
+    document.getElementById("modifNbPlaceBtn").addEventListener("click", () => {
+        var check;
+        var ids = [];
+        var values = [];
+
+        var select = document.getElementById("typeCoursSelect");
+
+        document.querySelectorAll(".numberInput").forEach((element, index) => {
+            var val = select.options[select.selectedIndex].value;
+            check = champsVerif.numbers(element);
+            if (check != false && element.value != val) {
+                ids.push(index);
+                values.push(element.value);
+            }
+        });
+
+        if (!check && values.length != 0) {
+            var queries = [];
+            for(var i = 0; i < values.length; i++) 
+                queries[i] = `UPDATE typecours SET nbrPlaces = ${values[i]} WHERE id = ${ids[i]}`;
+            
+            setData(queries, false);
+        }
+
+    });
+
+    document.getElementById("ajoutUsersBtn").addEventListener("click", () => {
+        check = true;
+
+        var email = document.getElementById("emailEtudInput");
+        check = champsVerif.email(email);
+
+        var nom = document.getElementById("nomEtudInput");
+        check = champsVerif.nom(nom);
+
+        var prenom = document.getElementById("prenomEtudInput");
+        check = champsVerif.nom(prenom);
+
+        var idsJours = [];
+        document.querySelectorAll(".cbJourImm").forEach((element, index) => {
+            if (element.checked) {
+                var id = element.id.substring(0, element.id.indexOf('-'));
+                idsJours.push(id);
+            }
+        })
+        if (idsJours.length == 0) {
+            check = false;
+            document.getElementById("cbJourImmErr").innerText = "*Choissisez au moin une date";
+        }
+        else
+            document.getElementById("cbJourImmErr").innerText = "";
+
+        if (check != false) {
+            userObj.emialInput = email.value;
+            userObj.nomInput = nom.value;
+            userObj.prenomInput = prenom.value;
+            
+            var queryWhere = ``;
+            for (var i = 0; i < idsJours.length; i++) {
+                queryWhere += ` horraire.idJour = ${idsJours[i]}`;
+                if (i != idsJours.length - 1)
+                    queryWhere += ` OR`;
+            }
+                
+            var query = [
+                `SELECT horraire.idHorraire, jours.jour, duree.categorie
+                 FROM horraire LEFT JOIN jours 
+                    ON (horraire.idJour = jours.id) LEFT JOIN duree
+                    ON (horraire.idDuree = duree.id)
+                 WHERE ${queryWhere}
+                 ORDER BY jours.jour, duree.debut`];
+                
+            getData(query, [(data) => {
+                console.log(data);
+                var curCategorie = data[0]["categorie"];
+                var breakPoint = 0;
+                var choices = [];
+                for (var i = 0; i < data.length; i++) {
+                    if (curCategorie != data[i]["categorie"]) {
+                        var obj = {};
+                        var rando = Math.floor(Math.random() * (i - breakPoint)) + breakPoint;
+                        console.log(`i = ${i} : categorie = ${data[i]["categorie"]} : rando = ${rando}`);
+                        obj["idHorraire"] = data[rando]["idHorraire"];
+                        choices.push(obj);
+                        breakPoint = i;
+                        curCategorie = data[i]["categorie"];
+                    }
+                }
+                console.log(choices);
+                insertUser(userObj, choices, false);
+            }]);
+        }
+
+    });
+
+
+
 })();
-
-
-
-// function insertData(query) {
-//     var url = "php/insertData.php?Query="+query;
-
-//     xhr = getXMLHttpRequest();
-
-//     xhr.open("GET", url, true);
-
-//     xhr.onreadystatechange = function() {
-//         var response = xhr.responseText;
-//         if (response == "OK") {
-//             alert("c bon");
-//         }
-//         if (response == "NOPE") {
-//             alert("pas bon");
-//         }
-//     }
-
-//     xhr.send();
-// }
-
-
-// function testChampVide(elem) {
-//     if (elem.value === "" || elem.value == null) {
-//         var error = getErrTooltip(elem.id);
-//         error.innerText = "*champs est requis";
-//         return false;
-//     }
-//     else {
-//         var error = getErrTooltip(elem.id);
-//         error.innerText = "";
-//     }
-// }
-
-// function nomVerification(item) {
-//     var name = item.value;
-//     var error = getErrTooltip(item.id);
-
-//     if (name === "" || name == null) {
-//         error.innerText = "*champs est requis";
-//         return false;
-//     }        
-//     else if (!/^[a-z]+$/i.test(name)) {
-//         error.innerText = "*champ est invalide";
-//         return false;
-//     }
-//     else {
-//         error.innerText = "";
-//     }
-// }

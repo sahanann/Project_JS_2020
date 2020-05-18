@@ -1,17 +1,26 @@
 (function () {
-
-	
-
-	// url = require('url');
-	// var url = new URL(window.location.href);
-
-	// http://web2020/projet_JS_2020/user.html?year=2017&month=february
-	// console.log(url.searchParams.get("month"));
-	// console.log(`${url.origin}/message.html`);
-
 	var minChoice = 2;
 	var selectedCount = [0, 0, 0];
 	var currentTable = 0;
+
+	function addElemToSelect(value) {
+		var x = document.getElementById("datesSelector");
+		var option = document.createElement("option");
+		option.text = value;
+		x.add(option);
+	}
+
+	document.getElementById("datesSelector").addEventListener("change", (e) => {
+		var selIndex = e.target.selectedIndex;
+		currentTable = selIndex;
+		for (var i = 0; i < e.target.length; i++) {
+			var str = "tableCours" + i;
+			if (i == selIndex) 
+			document.getElementById(str).style.display = null;
+			else
+			document.getElementById(str).style.display = "none";
+		}
+	});
 
 
 	function createTable(data) {

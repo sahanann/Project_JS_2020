@@ -55,7 +55,7 @@
             choixCours = choixCours.parentNode;
         }
     
-        modifStyleAtClick("none", "block", "1000px", choixCours, ".formPanel", checkUserInfo, formPanelOnClick);
+        modifStyleOnClick("none", "block", "1000px", choixCours, ".formPanel", checkUserInfo, formPanelOnClick);
     
         
         document.getElementById("submitBtn").addEventListener("click", () => {
@@ -75,22 +75,25 @@
             }
     
             var query = 
-            [`SELECT cours.id, cours.intitule, cours.nbrPlaces
+            [`SELECT id, nbrPlaces FROM typecours`,
+            `SELECT horraire.idHorraire , cours.intitule, horraire.nbrPlaceOccuper, cours.type
             FROM horraire LEFT JOIN cours ON (horraire.idCours = cours.id)
-            WHERE ${queryWhere}
-            ORDER BY cours.id;`];
+            WHERE ${queryWhere}`];
+
+            var typeCours;
     
             
-            getData(query, [(data) => {
+            getData(query, [ (data) => {typeCours = data;},
+                (data) => {
                 var emptyCoursList = [];
                 
                 for (var i = 0; i < data.length; i++) 
-                    if(data[i]["nbrPlaces"] == 0) 
+                    if(data[i]["nbrPlaceOccuper"] == typeCours[data[i]["type"]]["nbrPlaces"])
                         emptyCoursList.push(data[i]["intitule"]);
                     
                 
                 if (emptyCoursList === undefined || emptyCoursList.length == 0) 
-                    insertUser(userData, data);
+                    insertUser(userData, data, userData["emialInput"]);
                 else 
                     alert(`Pas de places pour le(s) cours : ${emptyCoursList}`);
     
@@ -107,12 +110,12 @@
             formPanel = formPanel.parentNode;
         }
         
-        modifStyleAtClick("block", "none", "300px", formPanel, ".choixCours", formPanelOnClick, checkUserInfo);
+        modifStyleOnClick("block", "none", "300px", formPanel, ".choixCours", formPanelOnClick, checkUserInfo);
     
     }
 
 
-    function modifStyleAtClick(formDisplay, tableDisplay, size, elemA, className, callBackA, callBackB) {
+    function modifStyleOnClick(formDisplay, tableDisplay, size, elemA, className, callBackA, callBackB) {
         document.getElementById("formHolder").style.display = formDisplay;
         document.getElementById("chxBtnHolder").style.display = formDisplay;
         document.getElementById("tblCoursHolder").style.display = tableDisplay;
@@ -135,46 +138,7 @@
 
 
 
-    function insertUser(userData, choixData) {
     
-        querySelect = ["SELECT id FROM user ORDER BY id"];
-        var idUser;
-        getData(querySelect, [(data) => {
-            
-            if (data == false)
-                idUser = 1;
-            else
-                idUser = parseInt(data[data.length - 1]["id"]) + 1;
-                
-            
-            var queryInsertUser = `INSERT INTO user(id, nom, prenom, email, etablissement, finalite) \
-                VALUES ("${idUser}", "${userData["nomInput"]}", "${userData["prenomInput"]}", \
-                "${userData["emialInput"]}", "${userData["etablInput"]}", "${userData["cbFinalite"]}");`;
-            
-            console.log(`id uder = ${idUser}`);
-            console.log(`query user = ${queryInsertUser}`);
-    
-            var queryValues = ``;
-            for (var i = 0; i < choixData.length; i++) {
-                queryValues += `(${idUser}, ${choixData[i]["id"]})`;
-                if (i != choixData.length - 1)
-                    queryValues += `, `;
-            }
-            var queryInsertChoix = `INSERT INTO choix(idUser, idHorraire) VALUES ${queryValues}`;
-    
-    
-            var queryList = [queryInsertUser, queryInsertChoix];
-            for (var i = 0; i < choixData.length; i++) {
-                var updateQuery = `UPDATE cours SET nbrPlaces = nbrPlaces - 1 WHERE cours.id = ${choixData[i]["id"]}`;
-                queryList.push(updateQuery);
-            }
-    
-            
-            setData(queryList, true);
-    
-        }]);
-       
-    }
 
     
 
