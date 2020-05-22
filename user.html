@@ -10,137 +10,158 @@
     <link rel="stylesheet" href="style/choixCours.css">
     <link rel="stylesheet" href="style/tableCours.css">
     <link rel="stylesheet" href="style/dateChose.css">
+    <link rel="stylesheet" href="style/admin/comboBox.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <body>
 
         <div class="tabs">
-            <h1>Choix des cours journée immersion HEPL</h1>
+            <img src="style/images/logo2.png" alt="">
+            <h1>Haute Ecole de la Province de Liège</h1>
+            <div id="titleHolder">
+                
+                
+            </div>
+            <h2>Choix des cours journée immersion HEPL</h2>
         </div>
 
-            <form class="formPanel">
+        <form class="formPanel">
 
-                <div id="formHolder">
-                    <div class="fieldGroup">
-                        <label for="emialInput" class="filedName">Email</label>
-                        <input type="text" class="ftextInput" placeholder="Entrez votre email" id="emialInput">
-                        <span id="emialInputErr"></span>
-                    </div>
-        
-                    <div class="fieldGroup">
-                        <label for="nomInput" class="filedName">Nom</label>
-                        <input type="text" class="ftextInput" placeholder="Entrez votre nom" id="nomInput">
-                        <span id="nomInputErr"></span>
+            <div id="formHolder">
+                <div class="fieldGroup">
+                    <label for="emialInput" class="filedName">*Email</label>
+                    <input spellcheck="false" type="text" class="ftextInput" placeholder="Entrez votre email" id="emialInput">
+                    <span id="emialInputErr"></span>
+                </div>
+    
+                <div class="fieldGroup">
+                    <label for="nomInput" class="filedName">*Nom</label>
+                    <input spellcheck="false" type="text" class="ftextInput" placeholder="Entrez votre nom" id="nomInput">
+                    <span id="nomInputErr"></span>
+                </div>
+                
+                <div class="fieldGroup">
+                    <label for="prenomInput" class="filedName">*Prénom</label>
+                    <input spellcheck="false" type="text" class="ftextInput" placeholder="Entrez votre prénom" id="prenomInput">
+                    <span id="prenomInputErr"></span>
+                </div>
+    
+                <div class="fieldGroup">
+                    <label for="etablInput" class="filedName" id="etablInputLabel">Etablissement scolaire</label>
+                    <input spellcheck="false" type="text" placeholder="Entrez votre établissement scolaire" id="etablInput">
+                    <span id="etablInputErr"></span>
+                </div>
+    
+                <div class="fieldGroup">
+                    <label class="filedName">Les orientations qui vous intéressent</label>
+                    <div class="checkBoxes">
+                        <label class="container">Informatique de gestion
+                            <input class="cbFinalite" type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+    
+                        <label class="container">Informatique et système : réseaux et télécommunications
+                            <input class="cbFinalite" type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
+    
+                        <label class="container">Informatique et système : informatique industrielle
+                            <input class="cbFinalite" type="checkbox">
+                            <span class="checkmark"></span>
+                        </label>
                     </div>
                     
-                    <div class="fieldGroup">
-                        <label for="prenomInput" class="filedName">Prénom</label>
-                        <input type="text" class="ftextInput" placeholder="Entrez votre prénom" id="prenomInput">
-                        <span id="prenomInputErr"></span>
-                    </div>
-        
-                    <div class="fieldGroup">
-                        <label for="etablInput" class="filedName">Etablissement scolaire</label>
-                        <input type="text" placeholder="Entrez votre établissement scolaire" id="etablInput">
-                        <span id="etablInputErr"></span>
-                    </div>
-        
-                    <div class="fieldGroup">
-                        <label class="filedName">Les orientations qui vous intéressent</label>
-                        <div class="checkBoxes">
-                            <label class="container">Informatique de gestion
-                                <input class="cbFinalite" type="checkbox">
-                                <span class="checkmark"></span>
-                            </label>
-        
-                            <label class="container">Informatique et système : réseaux et télécommunications
-                                <input class="cbFinalite" type="checkbox">
-                                <span class="checkmark"></span>
-                            </label>
-        
-                            <label class="container">Informatique et système : informatique industrielle
-                                <input class="cbFinalite" type="checkbox">
-                                <span class="checkmark"></span>
-                            </label>
-                        </div>
-                        
-                    </div>
                 </div>
-
-                <div class="BackBtnHolder" >
-                    <label>Retour au formulaire</label>
-                    <img class="btnFormImage"></img>
-                </div>
-            </form>
-
-            
-            
-
-            <div class="choseDateHolder">
-                <div class="custom-select" style="width:200px;">
-                    <select id="datesSelector">
-                    </select>
-                  </div>
             </div>
 
-            <div class="choixCours bigButton" id="choixCoursBtn">
-                
+            <div class="BackBtnHolder" >
+                <label>Retour au formulaire</label>
+                <img class="btnFormImage"></img>
+            </div>
+        </form>
 
-                <div id="chxBtnHolder">
-                    <label>Choix des cours</label>
-                    <img class="btnChoixImage"></img>
+            
+            
+
+        <div class="choseDateHolder">
+            <div class="custom-select" style="width:200px;">
+                <select id="datesSelector" class="customSelect">
+                </select>
                 </div>
+        </div>
 
-                
-                
-                <!-- <p>&#9661</p> -->
-                <div id="tblCoursHolder">
-                    <table class="tabelCoursHorr" id="tableOriginal">
-                        <!-- <thead> -->
-                            <tr>
-                                <th rowspan="2" colspan="1" >
-                                    Bloc
-                                </th>
-                                <th width="400" rowspan="2" colspan="1">
-                                    Intitulé de cours
-                                </th>
-                                <th rowspan="2" colspan="1">
-                                    Type
-                                </th>
-                                <th rowspan="1" colspan="2">
-                                    Horaire
-                                </th>
-                                <th rowspan="1" colspan="3" >
-                                    Finalités concernées
-                                </th>
-                            </tr>
-                            <tr>
-                                <th>Début</th>
-                                <th>Fin</th>
-                                <th>Indus</th>
-                                <th>Réseau</th>
-                                <th>Gestion</th>
-                            </tr>
-                            
-                        <!-- </thead> -->
-                        <tr id="coursTableData">
+        <div class="choixCours bigButton" id="choixCoursBtn">
+            
+
+            <div id="chxBtnHolder">
+                <label>Choix des cours</label>
+                <img class="btnChoixImage"></img>
+            </div>
+
+            
+            
+            <!-- <p>&#9661</p> -->
+            <div id="tblCoursHolder">
+                <table class="tabelCoursHorr" id="tableOriginal">
+                    <!-- <thead> -->
+                        <tr>
+                            <th rowspan="2" colspan="1" >
+                                Bloc
+                            </th>
+                            <th width="400" rowspan="2" colspan="1">
+                                Intitulé de cours
+                            </th>
+                            <th rowspan="2" colspan="1">
+                                Type
+                            </th>
+                            <th rowspan="1" colspan="2">
+                                Horaire
+                            </th>
+                            <th rowspan="1" colspan="3" >
+                                Finalités concernées
+                            </th>
                         </tr>
-                        <!-- <tbody></tbody> -->
-                    </table>
-                    
+                        <tr>
+                            <th>Début</th>
+                            <th>Fin</th>
+                            <th>Indus</th>
+                            <th>Réseau</th>
+                            <th>Gestion</th>
+                        </tr>
+                        
+                    <!-- </thead> -->
+                    <tr id="coursTableData">
+                    </tr>
+                    <!-- <tbody></tbody> -->
+                </table>
+                
+            </div>
+        </div>
+
+            
+        <div class="choseDateHolder">
+            <div id="tableMsgBox">Choissisez au moin <span id="idChoixMin">3</span> cours par jour</div>
+            <button id="submitBtn" disabled>Submit</button>
+        </div>
+
+        
+        <div class="msgModalBox">
+            
+
+            <div class="msgModal-content">
+                <div class="msgModal-header">
+                    <span class="closeMsgBox">&times;</span>
+                    <h2>Pas de places pour le(s) cours suivant(s)</h2>
+                </div>
+                <div class="msgModal-body">
+                    <p>Some text in the Modal Body</p>
+                    <p>Some other text...</p>
                 </div>
             </div>
-
-            
-            <div class="choseDateHolder">
-                <button id="submitBtn" disabled>Submit</button>
-            </div>
-
-        
+        </div>
         
             
 
-        
 
         
 

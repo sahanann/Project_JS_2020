@@ -1,22 +1,5 @@
 (() => {
-    
-    function exportHTML(name){
-        var header = "<html xmlns:o='urn:schemas-microsoft-com:office:office' "+
-             "xmlns:w='urn:schemas-microsoft-com:office:word' "+
-             "xmlns='http://www.w3.org/TR/REC-html40'>"+
-             "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title> \
-             <style> body {background-color: powderblue; font-family: sans-serif;}</style> </head><body>";
-        var footer = "</body></html>";
-        var sourceHTML = header+document.getElementById("source-html").innerHTML+footer;
-        
-        var source = 'data:application/vnd.ms-word;charset=utf-8,' + encodeURIComponent(sourceHTML);
-        var fileDownload = document.createElement("a");
-        document.body.appendChild(fileDownload);
-        fileDownload.href = source;
-        fileDownload.download = `${name}.doc`;
-        fileDownload.click();
-        document.body.removeChild(fileDownload);
-    }
+
 
     var addOptions = (select, value, text) => {
         var option = document.createElement("option");
@@ -55,7 +38,8 @@
 
         for(var i = 0; i < data.length; i++)
             addOptions(select, data[i]["id"], data[i]["intitule"]);
-
+        
+        lastIdNumbers.coursId = data[i - 1]["id"];
     }
 
 
@@ -65,6 +49,8 @@
 
         for(var i = 0; i < data.length; i++)
             addOptions(select, data[i]["id"], data[i]["nom"] + " " + data[i]["prenom"]);
+
+        lastIdNumbers.profId = data[i - 1]["id"];
     }
 
 
@@ -73,6 +59,7 @@
 
         for(var i = 0; i < data.length; i++)
             addOptions(select, data[i]["id"], data[i]["jour"]);
+        
     }
 
 
@@ -82,7 +69,6 @@
         for(var i = 0; i < data.length; i++) {
             addOptions(selectDebut, data[i]["id"], data[i]["debut"] + " - " + data[i]["fin"]);
         }
-            
     }
 
 
@@ -107,13 +93,18 @@
         }
         drawTable.headers = ["jour", "debut", "fin", "bloc", "intitule", "type", "finalite"];
 
+        lastIdNumbers.userId = data[0]["id"];
+
         for (var x = 0; drawTable.index < data.length; x++) {
             var table = tableBase.cloneNode(true);
             table.style.display = null;
             var username = `${data[drawTable.index]["nom"]} ${data[drawTable.index]["prenom"]}`;
             var userId = data[drawTable.index]["id"];
-            var ind = drawTable.index;
-            
+
+            if (lastIdNumbers.userId < userId)
+                lastIdNumbers.userId = userId;
+
+            table.setAttribute("id", `${userId}-listCoursTable`);
             
             drawTable.buildRows(table);
 
@@ -123,52 +114,31 @@
             tableHolder.appendChild(nameElem);
             tableHolder.appendChild(table);
 
-            var button = document.createElement("button");
-            button.innerHTML = "Attestation";
-            button.setAttribute("class", "attestationBtn");
-            button.setAttribute("id", `${userId}-BtnAtt`);
-            button.addEventListener("click", (element) => {
-                var target = element.target;
-                var id = target.id.substring(0, target.id.indexOf('-'));
-                createAttestation(id);
-            });
-            tableHolder.appendChild(button);
+            var buttonHolder = document.createElement("div");
+            buttonHolder.setAttribute("class", "scndBtnHolder");
+
+            drawTable.btnAttestation(buttonHolder, `${userId}-BtnAtt`);
+
+            drawTable.btnPlanning(buttonHolder, `${userId}-BtnPlan`);
+
+            tableHolder.appendChild(buttonHolder);
         }
-    }
 
-    function createAttestation(id) {
-        var query = [
-            `SELECT DISTINCT user.nom, user.prenom, jours.jour
-             FROM choix LEFT JOIN user
-                ON(choix.idUser = user.id) LEFT JOIN horraire
-                ON(choix.idHorraire = horraire.idHorraire) LEFT JOIN jours
-                ON(horraire.idJour = jours.id)
-             WHERE user.id = ${id}`];
         
-        getData(query, [(data) => {
-            var fullName = `${data[0]["nom"]} ${data[0]["prenom"]}`.toUpperCase()
-            document.getElementById("attUserName").innerHTML = fullName;
-            
-            var datesHolder = document.getElementById("attJoursPres");
-            datesHolder.innerHTML = "";
-
-            for (var i = 0; i < data.length; i++) {
-                var h3 = document.createElement("h3");
-                h3.innerHTML = data[i]["jour"];
-                datesHolder.appendChild(h3);
-            }
-
-            exportHTML(fullName);
-        }]);
     }
+
+    
 
     editSelect[5] = (data) => {
         var select = document.getElementById("typeCoursSelect");
+
+        console.log(data);
 
         document.querySelectorAll(".numberInput").forEach((element, index) => {
             element.value = data[index]["nbrPlaces"];
             addOptions(select, data[index]["nbrPlaces"], data[index]["typeCours"]);
         });
+
     }
 
     editSelect[6] = (data) => {
@@ -192,6 +162,17 @@
             cbHolder.appendChild(label);
         }
     }
+
+    editSelect[7] = (data) => {
+        var dateData = data[0]["periodeInscription"].split("-");
+        console.log(`${dateData[0]}-${dateData[1]}-${dateData[2]}`);
+
+        document.getElementById("periodeInsInput").value = `${dateData[0]}-${dateData[1]}-${dateData[2]}`;
+        document.getElementById("nbMinChoixInput").value = data[0]["nbChoixMin"];
+
+        param.jour = `${dateData[0]}-${dateData[1]}-${dateData[2]}`;
+        param.minChoix = data[0]["nbChoixMin"];
+    }
     
     var queries = ["SELECT id, intitule FROM cours;",
                     "SELECT id, nom, prenom FROM professeur;",
@@ -208,10 +189,11 @@
                      ORDER BY user.nom, user.prenom, jours.jour, duree.debut",
                     "SELECT nbrPlaces, typeCours FROM typecours",
                     "SELECT DISTINCT jours.id, jours.jour \
-                     FROM jours RIGHT JOIN horraire ON(jours.id = horraire.idJour)"];
+                     FROM jours RIGHT JOIN horraire ON(jours.id = horraire.idJour)",
+                    "SELECT * FROM param"];
 
     
-    getData(queries, editSelect);
+    server.getData(queries, editSelect);
 
 })();
 

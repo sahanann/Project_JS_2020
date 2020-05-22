@@ -18,9 +18,20 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
 </head>
+    
     <body>
-
-        <div class="titleBar">Administration des données</div>
+        
+        <div class="tabs">
+            <img src="style/images/logo2.png" alt="">
+            <h1>Haute Ecole de la Province de Liège</h1>
+            <div id="titleHolder">
+                
+                
+            </div>
+            <h2>Choix des cours journée immersion HEPL</h2>
+        </div>
+        
+        <div class="titleBar" id="myBtn">Administration des données</div>
 
         <!-- <div class="largeButton sliderDown" id="ajoutCourSlider">Encodage des cours</div> -->
 
@@ -116,6 +127,8 @@
                 
             </div>
             <button class="myActionButton" id="ajoutCoursBtn">Ajouter</button>
+
+            <div id="1-actionMsgBox" class="actionMsgBox">Ajout avec succès</div>
         </div>
 
         
@@ -138,6 +151,8 @@
                 
             </div>
             <button id="ajoutProfBtn" class="myActionButton">Ajouter</button>
+
+            <div id="2-actionMsgBox" class="actionMsgBox">Ajout avec succès</div>
         </div>
 
 
@@ -188,6 +203,8 @@
                 
             </div>
             <button id="ajoutHorBtn" class="myActionButton">Ajouter</button>
+
+            <div id="3-actionMsgBox" class="actionMsgBox">Ajout avec succès</div>
         </div>
 
         <div class="formBoxHolder">
@@ -196,26 +213,28 @@
             <div class="AjoutCoursBox">
 
                 <div class="fieldGroup">
-                    <label for="theorieNbPInput" class="filedName">Théorie</label>
-                    <input type="number" placeholder="" class="numberInput" id="theorieNbPInput" min="1">
-                    <span id="theorieNbPInputErr"></span>
+                    <label for="1-NbPInput" class="filedName">Théorie</label>
+                    <input type="number" placeholder="" class="numberInput" id="1-NbPInput" min="1">
+                    <span id="1-NbPInputErr"></span>
                 </div>
 
                 <div class="fieldGroup">
-                    <label for="laboNbPInput" class="filedName">Labo</label>
-                    <input type="number" placeholder="" class="numberInput" id="laboNbPInput" min="1">
-                    <span id="laboNbPInputErr"></span>
+                    <label for="2-NbPInput" class="filedName">Labo</label>
+                    <input type="number" placeholder="" class="numberInput" id="2-NbPInput" min="1">
+                    <span id="2-NbPInputErr"></span>
                 </div>
 
                 <div class="fieldGroup">
-                    <label for="tfeNbPInput" class="filedName">TFE</label>
-                    <input type="number" placeholder="" class="numberInput" id="tfeNbPInput" min="1">
-                    <span id="tfeNbPInputErr"></span>
+                    <label for="3-NbPInput" class="filedName">TFE</label>
+                    <input type="number" placeholder="" class="numberInput" id="3-NbPInput" min="1">
+                    <span id="3-NbPInputErr"></span>
                 </div>
 
             </div>
 
             <button id="modifNbPlaceBtn" class="myActionButton">Modifier</button>
+
+            <div id="4-actionMsgBox" class="actionMsgBox">Modification avec succès</div>
         </div>
 
 
@@ -299,8 +318,61 @@
 
 
             <button id="ajoutUsersBtn" class="myActionButton">Ajouter</button>
+
+            <div id="5-actionMsgBox" class="actionMsgBox">Ajout avec succès</div>
+        </div>
+
+        <div class="formBoxHolder">
+            <div class="bigBoxHeader">Paramètre</div>
+
+            <div class="AjoutCoursBox">
+
+                <div class="fieldGroup">
+                    <label for="nbMinChoixInput" class="filedName">Nombre minimun de choix</label>
+                    <input type="number" placeholder=""  id="nbMinChoixInput" min="1">
+                    <span id="nbMinChoixInputErr"></span>
+
+                    <!-- <button id="modifMinChoix" class="myActionButton">Modifier</button> -->
+                </div>
+
+                
+
+                <div class="fieldGroup">
+                    <label for="periodeInsInput" class="filedName">le derniere jour de l'inscription</label>
+                    <input autocomplete="new-password" type="date" placeholder="Entrez la date" id="periodeInsInput">
+                    <span id="periodeInsInputErr"></span>
+
+                    <!-- <button id="modifDateBtn" class="myActionButton">Modifier</button> -->
+                </div>
+
+                
+            </div>
+
+            <button id="modiParamBtn" class="myActionButton">Modifier</button>
+
+            <div id="6-actionMsgBox" class="actionMsgBox">Modification avec succès</div>
         </div>
         
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         
         <div id="source-html" style="display: none;">
             <h1>
@@ -315,15 +387,34 @@
             </h2>
             <p>était bien présent a l'ecole le(s) jour(s) suivant(s) : </p>
             <div id="attJoursPres"></div>
+            
+        </div>
+
+        <div id="planning-source-html" style="display: none;">
+            <h1>
+                <center>Planning du jour</center>
+            </h1>
+            <h2>Haute Ecole de la Province de Liège</h2>
+            <h3>
+                <center id="planUserName"></center>
+            </h3>
+            <p>
+                Voici votre planning:
+            </p>
+            
+            <div id="attJoursPres"></div>
+            <div id="planTableHolder"></div>
+            
         </div>
 
     <!-- <script src="script/formVerification.js"></script>
     <script src="script/appelleServeur.js"></script>
     <script src="script/customSelect.js"></script> -->
+    <script src="script/fctUtile.js"></script>
     <script src="script/server.js"></script>
     <script src="script/admin.js"></script>
     <script src="script/ajoutCours.js"></script>
-    <script src="script/fctUtile.js"></script>
+    
     </body>
 
 </html>

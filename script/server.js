@@ -1,98 +1,190 @@
 
-function getData(queries, callBacks) {
-    xhr = getXMLHttpRequest();
+var server = {
 
-    (function loop(i, length) {
-        if (i>= length)
-            return;
-
-        // console.log(queries[i]);
-        
-        var url = "php/getData.php?Query="+queries[i];
-        xhr.open("GET", url, true);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                var response = xhr.responseText;
+    getData: (queries, callBacks) => {
+        xhr = server.getXMLHttpRequest();
     
-                if (response == "ERRSQL")
-                alert("error get");
-                    // window.open(`message.html?code=0`, `_self`);
-                else if (response == "NOTHING") 
-                    callBacks[i](false);
-                else if (response == "ERRQUERY")
-                alert("error get");
-                    // window.open(`message.html?code=0`, `_self`);
-                else 
-                    callBacks[i](JSON.parse(xhr.responseText));
-
-                loop(i + 1, length);
+        (function loop(i, length) {
+            if (i>= length)
+                return;
+    
+            // console.log(queries[i]);
+            
+            var url = "php/getData.php?Query="+queries[i];
+            xhr.open("GET", url, true);
+    
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                    var response = xhr.responseText;
+        
+                    if (response == "ERRSQL")
+                        // alert("error get");
+                        window.open(`message.html?code=0`, `_self`);
+                    else if (response == "NOTHING") 
+                        callBacks[i](false);
+                    else if (response == "ERRQUERY")
+                        // alert("error get");
+                        window.open(`message.html?code=0`, `_self`);
+                    else 
+                        callBacks[i](JSON.parse(xhr.responseText));
+    
+                    loop(i + 1, length);
+                }
             }
-        }
+    
+            xhr.send();
+    
+        })(0, queries.length);
+    },
 
-        xhr.send();
+    setData: (queryList, callBack) => {
+        xhr = server.getXMLHttpRequest();
 
-    })(0, queries.length);
-}
-
-
-
-function setData(queryList, msg) {
-    xhr = getXMLHttpRequest();
-
-    (function loop(i, length) {
-        if (i>= length) {
-            if (msg) {
-                sendEmail(msg);
+        console.log(queryList);
+    
+        (function loop(i, length) {
+            if (i>= length) {
+                callBack();
+                return;
             }
                 
-            return;
-        }
-            
-        // console.log(queryList[i]);
-        var url = "php/insertData.php?Query="+queryList[i];
-        xhr.open("GET", url, true);
-
-        xhr.onreadystatechange = function () {
-            if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
-                var response = xhr.responseText;
+            var url = "php/insertData.php?Query="+queryList[i];
+            xhr.open("GET", url, true);
     
-                if (response == "NOPE") {
-                    alert("error set");
-                    // window.open(`message.html?code=0`, `_self`);
-                    return;
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+                    var response = xhr.responseText;
+        
+                    if (response == "NOPE") {
+                        // alert("error set");
+                        window.open(`message.html?code=0`, `_self`);
+                        return;
+                    }
+    
+                    loop(i + 1, length);
+                }  
+            }
+    
+            xhr.send();
+        })(0, queryList.length) 
+    },
+
+    getXMLHttpRequest: () => {
+        var xhr = null;
+        
+        if (window.XMLHttpRequest || window.ActiveXObject) {
+            if (window.ActiveXObject) {
+                try {
+                    xhr = new ActiveXObject("Msxml2.XMLHTTP");
+                } catch(e) {
+                    xhr = new ActiveXObject("Microsoft.XMLHTTP");
                 }
-                // if (response == "OK")
-                //     isSet = true;
-
-                loop(i + 1, length);
-            }  
+            } else {
+                xhr = new XMLHttpRequest(); 
+            }
+        } else {
+            alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+            return null;
         }
+        
+        return xhr;
+    }
+}
 
-        xhr.send();
-    })(0, queryList.length)
 
+// function getData(queries, callBacks) {
+//     xhr = getXMLHttpRequest();
+
+//     (function loop(i, length) {
+//         if (i>= length)
+//             return;
+
+//         // console.log(queries[i]);
+        
+//         var url = "php/getData.php?Query="+queries[i];
+//         xhr.open("GET", url, true);
+
+//         xhr.onreadystatechange = function () {
+//             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+//                 var response = xhr.responseText;
     
-}
+//                 if (response == "ERRSQL")
+//                 alert("error get");
+//                     // window.open(`message.html?code=0`, `_self`);
+//                 else if (response == "NOTHING") 
+//                     callBacks[i](false);
+//                 else if (response == "ERRQUERY")
+//                 alert("error get");
+//                     // window.open(`message.html?code=0`, `_self`);
+//                 else 
+//                     callBacks[i](JSON.parse(xhr.responseText));
+
+//                 loop(i + 1, length);
+//             }
+//         }
+
+//         xhr.send();
+
+//     })(0, queries.length);
+// }
 
 
-function getXMLHttpRequest() {
-	var xhr = null;
+
+// function setData(queryList, callBack) {
+//     xhr = getXMLHttpRequest();
+
+//     (function loop(i, length) {
+//         if (i>= length) {
+//             callBack();
+//             // if (msg) {
+//             //     sendEmail(msg);
+//             // }
+                
+//             return;
+//         }
+            
+//         // console.log(queryList[i]);
+//         var url = "php/insertData.php?Query="+queryList[i];
+//         xhr.open("GET", url, true);
+
+//         xhr.onreadystatechange = function () {
+//             if (xhr.readyState == 4 && (xhr.status == 200 || xhr.status == 0)) {
+//                 var response = xhr.responseText;
+    
+//                 if (response == "NOPE") {
+//                     alert("error set");
+//                     // window.open(`message.html?code=0`, `_self`);
+//                     return;
+//                 }
+//                 // if (response == "OK")
+//                 //     isSet = true;
+
+//                 loop(i + 1, length);
+//             }  
+//         }
+
+//         xhr.send();
+//     })(0, queryList.length) 
+// }
+
+
+// function getXMLHttpRequest() {
+// 	var xhr = null;
 	
-	if (window.XMLHttpRequest || window.ActiveXObject) {
-		if (window.ActiveXObject) {
-			try {
-				xhr = new ActiveXObject("Msxml2.XMLHTTP");
-			} catch(e) {
-				xhr = new ActiveXObject("Microsoft.XMLHTTP");
-			}
-		} else {
-			xhr = new XMLHttpRequest(); 
-		}
-	} else {
-		alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
-		return null;
-	}
+// 	if (window.XMLHttpRequest || window.ActiveXObject) {
+// 		if (window.ActiveXObject) {
+// 			try {
+// 				xhr = new ActiveXObject("Msxml2.XMLHTTP");
+// 			} catch(e) {
+// 				xhr = new ActiveXObject("Microsoft.XMLHTTP");
+// 			}
+// 		} else {
+// 			xhr = new XMLHttpRequest(); 
+// 		}
+// 	} else {
+// 		alert("Votre navigateur ne supporte pas l'objet XMLHTTPRequest...");
+// 		return null;
+// 	}
 	
-	return xhr;
-}
+// 	return xhr;
+// }

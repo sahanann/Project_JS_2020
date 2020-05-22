@@ -12,7 +12,7 @@
 #submitBtn {
     display: none;
     box-shadow: 0 5px 8px rgba(0, 0, 0, 0.4);
-    background-color: rgb(20, 127, 221);
+    background-color: rgb(255, 188, 43);
     width: 200px;
     height: 42px;
     border: none;
@@ -24,25 +24,54 @@
     outline: none;
     border: none;
     font-size: 18px;
+    color: rgb(31, 31, 31);
 }
 
 #submitBtn:hover {
     box-shadow: 0 6px 14px rgba(0, 0, 0, 0.5);
-    background-color: rgb(43, 135, 255);
+    background-color: rgb(233, 179, 32);
+    color: black;
 }
 
 #submitBtn:active {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-    background-color: rgb(16, 113, 197);
+    background-color: rgb(236, 170, 27);
     color: rgba(255, 255, 255, 0.616);
 }
 
 #submitBtn:disabled {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.4);
-    background-color: rgb(69, 133, 189);
-    color: rgba(255, 255, 255, 0.363);
+    background-color: rgb(221, 169, 90);
+    color: rgba(75, 75, 75, 0.363);
     cursor: not-allowed;
 }
+
+#tableMsgBox {
+    display: none;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
+    background: rgb(241, 166, 172);
+    /* background-color: rgb(241, 166, 172); */
+    width: auto;
+    height: 36px;
+    padding: 8px 20px 0 20px;
+    border: none;
+    border-radius: 18px;
+    transition: all 160ms linear;
+    margin-top: 16px;
+    color: rgb(34, 34, 34);
+    float: left;
+    outline: none;
+    border: none;
+    font-size: 16px;
+    animation-name: example;
+    animation-duration: 2s;
+    opacity: 1;
+}
+
+@keyframes example {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
 
 
 
@@ -58,7 +87,7 @@
 }
 
 #datesSelector {
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+    /* box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2); */
     width: 200px;
     height: 34px;
     border: none;
@@ -74,67 +103,3 @@
     cursor: not-allowed;
 }
 
-/*
-.custom-select select {
-    display: none; 
-}
-  
-.select-selected {
-    background-color: rgb(255, 255, 255);
-    color: black;
-    border-radius: 20px;
-    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
-}
-  
-
-.select-selected:after {
-    position: absolute;
-    content: "";
-    top: 14px;
-    right: 10px;
-    width: 0;
-    height: 0;
-    border: 6px solid transparent;
-    border-color: rgb(153, 153, 153) transparent transparent transparent;
-}
-  
-
-.select-selected.select-arrow-active:after {
-    border-color: transparent transparent rgb(150, 150, 150) transparent;
-    top: 7px;
-}
-  
-
-.select-items div,.select-selected {
-    color: rgb(0, 0, 0);
-    padding: 8px 16px;
-    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-    cursor: pointer;
-    user-select: none;
-}
-  
-
-.select-items {
-    position: absolute;
-    margin-top: 10px;
-    background-color: rgb(255, 255, 255);
-    top: 100%;
-    left: 0;
-    right: 0;
-    z-index: 99;
-    border-radius: 10px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
-}
-  
-.select-hide {
-    display: none;
-}
-
-.select-items div {
-    color: rgb(128, 128, 128);
-    border-radius: 10px;
-}
-  
-.select-items div:hover, .same-as-selected {
-    background-color: rgba(119, 119, 119, 0.1);
-} */

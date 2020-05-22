@@ -1,6 +1,6 @@
 (function () {
-	var minChoice = 2;
-	var selectedCount = [0, 0, 0];
+	// var minChoice = 2;
+	var selectedCount = [];
 	var currentTable = 0;
 
 	function addElemToSelect(value) {
@@ -8,6 +8,7 @@
 		var option = document.createElement("option");
 		option.text = value;
 		x.add(option);
+		selectedCount.push(0);
 	}
 
 	document.getElementById("datesSelector").addEventListener("change", (e) => {
@@ -48,7 +49,6 @@
 		}
 
 		drawTable.createRow = (table) => {
-			console.log(tableGrpClass[parseInt(drawTable.data[drawTable.index]["categorie"]) - 1]);
 			var tr = table.insertRow(-1)
 			tr.classList.add("tableRowStyle");
 			tr.classList.add(tableGrpClass[parseInt(drawTable.data[drawTable.index]["categorie"]) - 1]);
@@ -103,33 +103,76 @@
 			row.classList.add(selected);
 			selectedCount[currentTable]++;
 		}
+
+
+		var submitBtn = document.getElementById("submitBtn");
+		var datesSelector = document.getElementById("datesSelector");
 	
-		if (selectedCount[currentTable] > 0 && selectedCount[currentTable] < minChoice) {
-			document.getElementById("datesSelector").disabled = true;
-			document.getElementById("submitBtn").disabled = true;
+		if (selectedCount[currentTable] > 0 && selectedCount[currentTable] < param.minChoix) {
+			datesSelector.disabled = true;
+			submitBtn.disabled = true;
 		}
 		else {
-			document.getElementById("datesSelector").disabled = false;
-			document.getElementById("submitBtn").disabled = false;
+			datesSelector.disabled = false;
+			if (selectedCount[currentTable] == 0) {
+				for (var i = 0; i < selectedCount.length; i++) 
+					if (selectedCount[i] > 0) {
+						submitBtn.disabled = false;
+						msgBox.style.backgroundColor = 'green';
+						break;
+					}
+					else {
+						submitBtn.disabled = true;
+					}
+						
+			}
+			else
+				submitBtn.disabled = false;
+				
 		}
 	}
 
+	var callbacks = [];
+
+	callbacks[0] = (data) => {
+		var today = new Date();
+		var datePeriode = new Date();
+		var dd = String(today.getDate()).padStart(2, '0');
+		var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+		var yyyy = today.getFullYear();
+
+		today = yyyy + '-' + mm + '-' + dd;
+		datePeriode = data[0]["periodeInscription"]
+
+		// console.log(`today = ${today} | periode = ${datePeriode}`);
+
+		if (today > datePeriode) {
+			window.open(`message.html?code=2`, `_self`);
+		}
+		else {
+			param.minChoix = data[0]["nbChoixMin"];
+			document.getElementById("idChoixMin").innerHTML = param.minChoix;
+		}
+	}
+
+	callbacks[1] = (data) => createTable(data);
+
+	
 
 
 
-	var query = ["SELECT cours.bloc, cours.intitule, cours.type, duree.debut, duree.fin, cours.finalite, duree.categorie, jours.jour, horraire.idHorraire \
+	var query = ["SELECT * FROM param",
+		"SELECT cours.bloc, cours.intitule, cours.type, duree.debut, duree.fin, cours.finalite, duree.categorie, jours.jour, horraire.idHorraire \
 	FROM cours, horraire, duree, jours \
 	WHERE horraire.idCours = cours.id \
 	AND horraire.idDuree = duree.id \
 	AND horraire.idJour = jours.id \
 	ORDER BY jours.jour, duree.debut;"];
 
-	getData(query, [(data) => {
-		if (data != false) 
-			createTable(data);
-		else
-			alert("probleme de serveur");
-	}]);
+
+
+
+	server.getData(query, callbacks);
     
 })();
 

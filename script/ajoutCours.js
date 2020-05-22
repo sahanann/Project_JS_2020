@@ -1,4 +1,29 @@
 (() => {
+
+    var msgBoxTimer;
+
+    function callActionMsgBox(id, msg) {
+        var box = document.getElementById(id);
+        box.innerHTML = msg;
+        // box.style.display = "block";
+        box.style.opacity = "1";
+        box.style.bottom = "-18px";
+        clearTimeout(msgBoxTimer);
+        msgBoxTimer = setTimeout(() => { 
+            box.style.opacity = "0"; 
+            box.style.bottom = "-60px";
+        }, 3000);
+
+    }
+
+    var addOptions = (select, value, text) => {
+        var option = document.createElement("option");
+        option.value = value;
+        option.text = text;
+        select.add(option);
+    }
+
+
     document.getElementById("ajoutCoursBtn").addEventListener("click", () => {
         var check = true;
         var nomCours = document.getElementById("nomCoursInput");
@@ -20,7 +45,8 @@
 
         var cdChoice = "";
         var finalites = ["I", "R", "G"];
-        document.querySelectorAll(".cbFinalite").forEach((element, index) => {
+        var checkBoxFinalite = document.querySelectorAll(".cbFinalite");
+        checkBoxFinalite.forEach((element, index) => {
             if (element.checked)
                 cdChoice = cdChoice + finalites[index];
             else
@@ -38,12 +64,22 @@
         var typeCours = document.getElementById("typeCoursSelect");
         var bloc = document.getElementById("groupeSelect").selectedIndex + 1;
         var nbPlaces = typeCours.options[typeCours.selectedIndex].value;
+        console.log(`nbrPlace = ${nbPlaces}`);
 
         if (check != false) {
+            lastIdNumbers.coursId++;
+            var nomCoursValue = nomCours.value;
             var query = [`INSERT INTO cours (id, bloc, intitule, type, finalite, idProf, nbrPlaces) 
-                        VALUES (NULL, '${bloc}', '${nomCours.value}', '${typeCours}', '${cdChoice}', '${prof}', '${nbPlaces}')`];
-            setData(query, false);
-            // insertData(query);
+                        VALUES (${lastIdNumbers.coursId}, '${bloc}', '${nomCours.value}', '${nbPlaces}', '${cdChoice}', '${prof}', '${nbPlaces}')`];
+            server.setData(query, () => {
+                var select = document.getElementById("nomCoursSelect");
+                addOptions(select, lastIdNumbers.coursId, nomCoursValue);
+                callActionMsgBox("1-actionMsgBox", "Cours a été ajouté");
+            });
+
+            local.value = ""
+            nomCours.value = "";
+            checkBoxFinalite.forEach((element) => {element.checked = false;});
         }
 
     });
@@ -60,9 +96,18 @@
 
         // console.log(check != false);
         if (check != false) {
-            var query = [`INSERT INTO professeur (id, nom, prenom) VALUES (NULL, '${nomProf.value.toUpperCase()}', '${prenomProf.value}')`];
-            setData(query, false);
-            // insertData(query);
+            var nom = nomProf.value.toUpperCase();
+            var prenom = prenomProf.value
+            lastIdNumbers.profId++;
+            var query = [`INSERT INTO professeur (id, nom, prenom) VALUES (${lastIdNumbers.profId}, '${nom}', '${prenom}')`];
+            server.setData(query, () => {
+                var select = document.getElementById("nomProfSelect");
+                addOptions(select, lastIdNumbers.profId, `${nom} ${prenom}`);
+                callActionMsgBox("2-actionMsgBox", "Le professeur a été ajouter");
+            });
+
+            nomProf.value = "";
+            prenomProf.value = "";
         }
         
     });
@@ -89,8 +134,8 @@
         if (check != false) {
             var query = [`INSERT INTO horraire (idHorraire, idCours, idDuree, idJour) 
                             VALUES (NULL, '${idCours}', '${idDuree}', '${idJour}')`];
-            setData(query, false);
-            // insertData(query);
+
+            server.setData(query, () => {callActionMsgBox("3-actionMsgBox", "Horraire a été ajouté");});
         }
 
     });
@@ -104,21 +149,30 @@
         var select = document.getElementById("typeCoursSelect");
 
         document.querySelectorAll(".numberInput").forEach((element, index) => {
-            var val = select.options[select.selectedIndex].value;
-            check = champsVerif.numbers(element);
+            var val = select.options[index].value;
+            check = champsVerif.vide(element);
             if (check != false && element.value != val) {
-                ids.push(index);
+                ids.push(index + 1);
                 values.push(element.value);
             }
         });
+
 
         if (!check && values.length != 0) {
             var queries = [];
             for(var i = 0; i < values.length; i++) 
                 queries[i] = `UPDATE typecours SET nbrPlaces = ${values[i]} WHERE id = ${ids[i]}`;
             
-            setData(queries, false);
+            server.setData(queries, () => {
+                callActionMsgBox("4-actionMsgBox", "Modification avec succès");
+                for(var i = 0; i < values.length; i++) {
+                    select.options[ids[i] - 1].value = values[i];
+                }
+
+            });
         }
+        else if (values.length == 0)
+            callActionMsgBox("4-actionMsgBox", "Rien a modifer");
 
     });
 
@@ -135,12 +189,14 @@
         check = champsVerif.nom(prenom);
 
         var idsJours = [];
-        document.querySelectorAll(".cbJourImm").forEach((element, index) => {
+        var choixJour = document.querySelectorAll(".cbJourImm");
+        choixJour.forEach((element) => {
             if (element.checked) {
                 var id = element.id.substring(0, element.id.indexOf('-'));
                 idsJours.push(id);
             }
-        })
+        });
+
         if (idsJours.length == 0) {
             check = false;
             document.getElementById("cbJourImmErr").innerText = "*Choissisez au moin une date";
@@ -161,35 +217,102 @@
             }
                 
             var query = [
-                `SELECT horraire.idHorraire, jours.jour, duree.categorie
-                 FROM horraire LEFT JOIN jours 
+                `SELECT horraire.idHorraire, jours.jour, duree.categorie, SUBSTRING(jours.jour, 6, 5) AS jour,
+                    SUBSTRING(duree.debut, 1, 5) AS debut, SUBSTRING(duree.fin, 1, 5) AS fin, cours.bloc, 
+                    cours.intitule, cours.type, cours.finalite
+                 FROM horraire LEFT JOIN cours
+                    ON (horraire.idCours = cours.id) LEFT JOIN jours 
                     ON (horraire.idJour = jours.id) LEFT JOIN duree
                     ON (horraire.idDuree = duree.id)
                  WHERE ${queryWhere}
                  ORDER BY jours.jour, duree.debut`];
                 
-            getData(query, [(data) => {
-                console.log(data);
-                var curCategorie = data[0]["categorie"];
+            server.getData(query, [(data) => {
+                // console.log(data);
+                var curCategorie = -1;
                 var breakPoint = 0;
                 var choices = [];
                 for (var i = 0; i < data.length; i++) {
                     if (curCategorie != data[i]["categorie"]) {
                         var obj = {};
                         var rando = Math.floor(Math.random() * (i - breakPoint)) + breakPoint;
-                        console.log(`i = ${i} : categorie = ${data[i]["categorie"]} : rando = ${rando}`);
+                        // console.log(`i = ${i} : categorie = ${data[i]["categorie"]} : rando = ${rando}`);
                         obj["idHorraire"] = data[rando]["idHorraire"];
-                        choices.push(obj);
+                        choices.push(data[rando]);
                         breakPoint = i;
                         curCategorie = data[i]["categorie"];
                     }
                 }
-                console.log(choices);
-                insertUser(userObj, choices, false);
+                // console.log(choices);
+                insertUser(userObj, choices, () => {
+                    var tableHolder = document.getElementById("userTableHolder");
+                    var tableBase = document.querySelector(".userChoiceTable");
+                    drawTable.index = 0;
+                    drawTable.check = () => true;
+                    drawTable.headers = ["jour", "debut", "fin", "bloc", "intitule", "type", "finalite"];
+
+                    drawTable.data = choices;
+
+                    var table = tableBase.cloneNode(true);
+                    table.style.display = null;
+                    var username = `${userObj.nomInput} ${userObj.prenomInput}`;
+                    var userId = lastIdNumbers.userId;
+
+                    table.setAttribute("id", `${userId}-listCoursTable`);
+
+                    drawTable.buildRows(table);
+
+                    var nameElem = document.createElement("DIV");
+                    nameElem.innerHTML = username;
+                    nameElem.setAttribute("class", "userNameHolder");
+                    tableHolder.appendChild(nameElem);
+                    tableHolder.appendChild(table);
+
+                    var buttonHolder = document.createElement("div");
+                    buttonHolder.setAttribute("class", "scndBtnHolder");
+
+                    drawTable.btnAttestation(buttonHolder, `${userId}-BtnAtt`);
+                    drawTable.btnPlanning(buttonHolder, `${userId}-BtnPlan`);
+
+                    tableHolder.appendChild(buttonHolder);
+                });
             }]);
+
+            email.value = "";
+            nom.value = "";
+            prenom.value = "";
+            choixJour.forEach((element) => {element.checked = false;});
         }
 
     });
+
+    document.getElementById("modiParamBtn").addEventListener("click", () => {
+        var queries = [];
+
+        var dateInput = document.getElementById("periodeInsInput");
+        if (champsVerif.vide(dateInput) != false) {
+            if (dateInput.value != param.jour) {
+                queries.push(`UPDATE param SET periodeInscription = '${dateInput.value}' WHERE param.id = 0`);
+            }
+        }
+
+        var minNbChoix = document.getElementById("nbMinChoixInput");
+        if (champsVerif.vide(minNbChoix) != false) {
+            if (minNbChoix.value != param.minChoix)
+                queries.push(`UPDATE param SET nbChoixMin = '${minNbChoix.value}' WHERE param.id = 0`);
+        }
+
+        if (queries.length != 0) {
+            server.setData(queries, () => {
+                callActionMsgBox("6-actionMsgBox", "Modification avec succès");
+                param.jour = dateInput.value;
+                param.minChoix = minNbChoix.value;
+            });
+        }
+        else
+            callActionMsgBox("6-actionMsgBox", "Rien a modifer");
+
+    })
 
 
 

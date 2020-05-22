@@ -10,7 +10,7 @@
         WHERE email = "${email}"`]
 
         
-        getData(queryEmail, [(data) => {
+        server.getData(queryEmail, [(data) => {
             if (data != false) {
                 var idUser = data[0]["id"];
                 var query = 
@@ -23,7 +23,7 @@
                   WHERE choix.idUser = ${idUser}
                   ORDER BY jours.jour, duree.debut`];
                 
-                getData(query, [(data) => {
+                server.getData(query, [(data) => {
                     drawTable.data = data;
                     drawTable.headers = ["jour", "debut", "fin", "bloc", "intitule", "type", "finalite"];
                     drawTable.buildRows(document.querySelector(".tabelCoursHorr"));

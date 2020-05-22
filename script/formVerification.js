@@ -7,7 +7,6 @@
     };
     
     document.querySelectorAll(".ftextInput").forEach(item => {
-        console.log(item.id);
         item.addEventListener("keyup", () => userFieldVerif[item.id](item));
     });
 
@@ -20,14 +19,15 @@
     function checkUserInfo (e) {
         var objValues = {};
         var checkError = true;
-        console.log("test");
 
         document.querySelectorAll(".ftextInput").forEach(item => {
-            checkError = userFieldVerif[item.id](item);
+            console.log(`check = ${checkError}`);
+            if (userFieldVerif[item.id](item) == false)
+                checkError = userFieldVerif[item.id](item);
             objValues[item.id] = item.value;
-            console.log("test");
         });
-    
+
+        console.log(`check = ${checkError}`);
         if (checkError != false) {
             objValues["etablInput"] = document.getElementById("etablInput").value;
     
@@ -83,7 +83,7 @@
             var typeCours;
     
             
-            getData(query, [ (data) => {typeCours = data;},
+            server.getData(query, [ (data) => {typeCours = data;},
                 (data) => {
                 var emptyCoursList = [];
                 
@@ -93,13 +93,42 @@
                     
                 
                 if (emptyCoursList === undefined || emptyCoursList.length == 0) 
-                    insertUser(userData, data, userData["emialInput"]);
-                else 
-                    alert(`Pas de places pour le(s) cours : ${emptyCoursList}`);
+                    insertUser(userData, data, () => sendEmail(userData["emialInput"]));
+                else {
+                    messageModal(emptyCoursList);
+                    // alert(`Pas de places pour le(s) cours : ${emptyCoursList}`);
+                }
+                    
     
             }]);
     
         });
+    }
+
+    
+
+    function messageModal(cours) {
+        var modal = document.querySelector(".msgModalBox");
+
+        modal.style.display = "block";
+
+        var modalBody = document.querySelector(".msgModal-body");
+        modalBody.innerHTML = "";
+        for (var i = 0; i < cours.length; i++) {
+            var p = document.createElement("p");
+            p.innerHTML = cours[i];
+            modalBody.appendChild(p);
+        }
+
+        document.querySelector(".closeMsgBox").addEventListener("click", () => {
+            modal.style.display = "none";
+        });
+
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
     }
 
     function formPanelOnClick(e) {
@@ -122,6 +151,12 @@
         document.querySelector(".custom-select").style.display = tableDisplay;
         document.querySelectorAll(".choseDateHolder").forEach(item => {item.style.maxWidth = size;});
         document.getElementById("submitBtn").style.display = tableDisplay;
+
+        if (tableDisplay != "none") {
+            setTimeout(() => document.getElementById("tableMsgBox").style.display = tableDisplay, 500);
+        }
+        else
+            document.getElementById("tableMsgBox").style.display = tableDisplay;
     
     
         var elemB = document.querySelector(className);

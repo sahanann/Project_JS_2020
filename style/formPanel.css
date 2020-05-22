@@ -24,9 +24,7 @@
     overflow: hidden;
 }
 
-.filedName {
-    transition: all .2s ease-in-out;
-}
+
 
 .fieldGroup {
     display: block;
@@ -39,10 +37,11 @@
 
 
 .filedName {
-    color: rgb(48, 48, 48);
+    color: rgb(65, 65, 65);
     margin: 0;
     padding: 0;
     font-weight: 500;
+    transition: all .14s ease-in-out;
     /* display: block; */
 }
 
@@ -52,6 +51,7 @@
 /* .formPanel input {
     
 } */
+
 
 
 .formPanel input[type="text"] {
@@ -109,7 +109,5 @@
 .bigButton:hover .btnFormImage {
     content: url("images/Arrow-up.png");
 }
-
-
 
 

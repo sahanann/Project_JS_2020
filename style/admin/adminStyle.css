@@ -1,50 +1,66 @@
 * { box-sizing:border-box; }
 
+:root {
+    --title-bar-color: rgb(235, 49, 95);
+    --primary-accent-color: rgb(252, 49, 83);
+    --second-title-color: rgb(255, 181, 193);
+    --main-button-color: rgb(253, 39, 86);
+    --main-button-hover: rgb(253, 65, 96);
+    --main-button-active: rgb(226, 17, 52);
+    --sec-button-color: rgb(253, 84, 112);
+    --sec-button-hover: rgb(255, 57, 90);
+    --sec-button-active: rgb(255, 41, 76);
+  }
+
 body {
     margin: 20px;
     padding: 0;
     padding-bottom: 100px;
-    /* font-family: sans-serif; */
     font-family: 'Roboto', sans-serif;
 }
 
 .titleBar {
     margin: auto;
-    max-width: 740px;
+    max-width: 480px;
     height: 64px;
-    background-color: rgb(33, 122, 240);
-    color: white;
+    background-color: var(--primary-accent-color);
+    color: rgba(255, 255, 255, 0.836);
     border-radius: 10px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.425);
     text-align: center;
     padding-top: 14px;
     font-size: 22px;
     margin-bottom: 50px;
+    margin-top: 130px;
+    font-weight: 500;
 }
 
 .AjoutCoursBox {
-    margin-bottom: 52px;
+    margin-bottom: 72px;
     /* max-width: 740px; */
     /* height: 0px; */
+    max-height: 700px;
     border-radius: 14px;
     background-color: white;
     box-shadow: 0 5px 14px rgba(0, 0, 0, 0.24);
     /* padding: 0; */
-    transition: all 200ms linear;
+    /* transition: all 200ms linear; */
     overflow: hidden;
     
     padding: 44px 40px 30px 40px;
     /* height: 400px; */
 }
 
+
+
 .formBoxHolder {
     margin: auto;
     position: relative;
-    max-width: 740px;
+    max-width: 780px;
 }
 
 
-
+/* 
 .largeButton {
     margin: auto;
     border: none;
@@ -60,10 +76,10 @@ body {
     padding-top: 10px;
     font-size: 22px;
     margin-bottom: 30px;
-}
+} */
 
 
-.largeButton:hover {
+/* .largeButton:hover {
     background-color: rgb(227, 244, 255);
     box-shadow: 0 5px 16px rgba(0, 0, 0, 0.34);
 }
@@ -72,7 +88,7 @@ body {
     background-color: rgb(83, 163, 255);
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.3);
     color: white;
-}
+} */
 
 .fieldGroup {
     width: 90%;
@@ -99,6 +115,19 @@ body {
 }
 
 input[type="number"] {
+    width: 100%;
+    height: 36px;
+    margin-top: 6px;
+    outline: none;
+    color: rgb(31, 31, 31);
+    font-size: 16px;
+    /* background: transparent; */
+    border-radius: 6px;
+    padding-left: 10px;
+    border: 2px solid rgba(0, 0, 0, 0.158);
+}
+
+input[type="date"] {
     width: 100%;
     height: 36px;
     margin-top: 6px;
@@ -178,7 +207,7 @@ input[type="number"] {
     height: 38px;
     width: 100px;
     font-size: 16px;
-    background-color: rgb(33, 122, 240);
+    background-color: var(--main-button-color);
     color: white;
     border: none;
     outline: none;
@@ -189,12 +218,12 @@ input[type="number"] {
 }
 
 .myActionButton:hover {
-    background-color: rgb(45, 134, 252);
+    background-color: var(--main-button-hover);
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.56);
 }
 
 .myActionButton:active {
-    background-color: rgb(26, 113, 228);
+    background-color: var(--main-button-active);
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.46);
 }
 
@@ -202,7 +231,7 @@ input[type="number"] {
     position: absolute;
     top: -20px;
     left: 40px;
-    background-color: rgb(235, 241, 252);
+    background-color: var(--second-title-color);
     color: rgb(0, 0, 0);
     padding: 10px 20px 10px 20px;
     border-radius: 14px;
@@ -227,14 +256,15 @@ input[type="number"] {
 }
 
 
-.attestationBtn {
+.sencondaryBtn {
     height: 30px;
     width: 100px;
     padding-bottom: 2px;
     margin-top: 10px;
-    margin-left: calc(50% - 50px);
-    margin-right: auto;
-    background-color: rgb(98, 173, 235);
+    margin-right: 20px;
+    /* margin-left: calc(50% - 50px); */
+    /* margin-right: auto; */
+    background-color: var(--sec-button-color);;
     color: white;
     border: none;
     outline: none;
@@ -246,12 +276,154 @@ input[type="number"] {
     transition: all 160ms linear;
 }
 
-.attestationBtn:hover {
+.sencondaryBtn:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
-    background-color: rgb(29, 133, 218);
+    background-color: var(--sec-button-hover);;
 }
 
-.attestationBtn:active {
+.sencondaryBtn:active {
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-    background-color: rgb(29, 133, 218);
+    background-color: var(--sec-button-active);;
+}
+
+.scndBtnHolder {
+    height: 32px;
+    width: 100%;
+    padding-left: calc((100% - 220px)/2) ;
+    margin: auto;
+    display: inline-block;
+}
+
+
+/* width */
+.AjoutCoursBox::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  #userTableHolder::-webkit-scrollbar-track {
+    background: #f1f1f100; 
+    border-radius: 10px;
+  }
+   
+  /* Handle */
+  #userTableHolder::-webkit-scrollbar-thumb {
+    background: rgb(228, 228, 228); 
+    border-radius: 10px;
+  }
+  
+  /* Handle on hover */
+  #userTableHolder::-webkit-scrollbar-thumb:hover {
+    background: rgb(214, 214, 214); 
+  }
+
+  #userTableHolder:hover {
+    overflow: auto;
+    padding-right: 30px;
+}
+
+
+.modalBox {
+    display: none;
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 200px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: hidden; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+.modalBoxContent {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 600px;
+    height: 200px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+
+
+.actionMsgBox {
+    /* display: none; */
+    position: absolute;
+    bottom: -60px;
+    left: 50px;
+    height: 38px;
+    width: 300px;
+    font-size: 16px;
+    background-color: rgb(9, 182, 130);
+    color: white;
+    border-radius: 14px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.4);
+    overflow: hidden;
+    transition: all 140ms linear;
+    text-align: center;
+    padding-top: 9px;
+    opacity: 0;
+
+    /* -webkit-animation-name: animatetop; */
+    /* -webkit-animation-duration: 0.5s; */
+    /* animation-name: animatetop; */
+    /* animation-duration: 0.5s */
+}
+
+/* @-webkit-keyframes animatetop {
+    from {bottom: -100px; opacity:0} 
+    to {bottom: -18px; opacity:1}
+}
+
+@keyframes animatetop {
+    from {bottom: -100px; opacity:0}
+    to {bottom: -18px; opacity:1}
+} */
+
+
+
+.tabs {
+    position: absolute;
+    left: 0; 
+    right: 0;  
+    top: 20px;
+    max-width: 780px;
+
+    margin: auto;
+    /* padding: 10px; */
+    background-color: var( --title-bar-color);
+    color: white;
+    height: 146px;
+    border-radius: 23px;
+    z-index: -1;
+    text-align: center;
+    overflow: hidden;
+}
+
+.tabs img {
+    position: absolute;
+    height: 130px;
+    width: 110px;
+    left: 10px;
+    top: 10px;
+    opacity: 0.34;
+}
+
+.tabs h2 {
+    position: absolute;
+    top: 40px;
+    bottom: 34px;
+    left: 0;
+    right: 0;
+    color: rgb(245, 174, 189);
+    font-size: 22px;
 }
