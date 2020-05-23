@@ -1,5 +1,21 @@
 (() => {
 
+    var fileSelector = document.createElement('input');
+    fileSelector.setAttribute('type', 'file');
+
+    var selectDialogueLink = document.createElement('a');
+    selectDialogueLink.setAttribute('href', '');
+    selectDialogueLink.innerText = "Select File";
+
+    selectDialogueLink.onclick = function () {
+        fileSelector.click();
+        return false;
+    }
+
+    document.body.appendChild(selectDialogueLink);
+
+
+
 
     var addOptions = (select, value, text) => {
         var option = document.createElement("option");
@@ -19,7 +35,7 @@
         var link = document.createElement("a");
         link.setAttribute("href", encodedUri);
         link.setAttribute("download", "my_data.csv");
-        document.body.appendChild(link); // Required for FF
+        document.body.appendChild(link); 
 
         link.click();
     }
@@ -30,6 +46,7 @@
      * - 2 : ajout des données dans le select de jourSelect
      * - 3 : ajout des données dans le select de heureDebutSelect
      * - 4 : ajout des données des utilisateurs et leurs choix des cours
+     * - 5 : 
     */
     var editSelect = new Array(7);
 

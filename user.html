@@ -29,19 +29,19 @@
 
             <div id="formHolder">
                 <div class="fieldGroup">
-                    <label for="emialInput" class="filedName">*Email</label>
+                    <label for="emialInput" class="filedName">Email*</label>
                     <input spellcheck="false" type="text" class="ftextInput" placeholder="Entrez votre email" id="emialInput">
                     <span id="emialInputErr"></span>
                 </div>
     
                 <div class="fieldGroup">
-                    <label for="nomInput" class="filedName">*Nom</label>
+                    <label for="nomInput" class="filedName">Nom*</label>
                     <input spellcheck="false" type="text" class="ftextInput" placeholder="Entrez votre nom" id="nomInput">
                     <span id="nomInputErr"></span>
                 </div>
                 
                 <div class="fieldGroup">
-                    <label for="prenomInput" class="filedName">*Prénom</label>
+                    <label for="prenomInput" class="filedName">Prénom*</label>
                     <input spellcheck="false" type="text" class="ftextInput" placeholder="Entrez votre prénom" id="prenomInput">
                     <span id="prenomInputErr"></span>
                 </div>
@@ -85,9 +85,16 @@
 
         <div class="choseDateHolder">
             <div class="custom-select" style="width:200px;">
-                <select id="datesSelector" class="customSelect">
-                </select>
-                </div>
+                <select id="datesSelector" class="customSelect"></select>
+            </div>
+            <div class="dateBtnHolder">
+                <button id="prevTableBtn" class="dateBtns" disabled>
+                    <img src="style/images/Arrow-previous.png" width="15" height="15" alt="previous"/>
+                </button>
+                <button id="nextTableBtn" class="dateBtns">
+                    <img src="style/images/Arrow-next.png" width="15" height="15" alt="next"/>
+                </button>
+            </div>
         </div>
 
         <div class="choixCours bigButton" id="choixCoursBtn">

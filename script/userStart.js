@@ -2,6 +2,45 @@
 	// var minChoice = 2;
 	var selectedCount = [];
 	var currentTable = 0;
+	// var datesList = [];
+
+	document.getElementById("prevTableBtn").addEventListener("click", (e) => {
+		document.getElementById("datesSelector").selectedIndex = currentTable - 1;
+		if (selectedCount[currentTable] >= param.minChoix || selectedCount[currentTable] == 0)
+			changeTable(currentTable - 1);
+	});
+
+	document.getElementById("nextTableBtn").addEventListener("click", (e) => {
+		document.getElementById("datesSelector").selectedIndex = currentTable + 1;
+		if (selectedCount[currentTable] >= param.minChoix || selectedCount[currentTable] == 0)
+			changeTable(currentTable + 1);
+	})
+
+	function changeTable(index) {
+		var curTableId = "tableCours" + currentTable;
+		var seltableId = "tableCours" + index;
+
+		document.getElementById(seltableId).style.display = null;
+		document.getElementById(curTableId).style.display = "none";
+
+		var prevBtn = document.getElementById("prevTableBtn");
+		var nextBtn = document.getElementById("nextTableBtn");
+
+		if (index == 0) {
+			prevBtn.disabled = true;
+			nextBtn.disabled = false;
+		}
+		else if (index == document.getElementById("datesSelector").length - 1) {
+			prevBtn.disabled = false;
+			nextBtn.disabled = true;
+		}
+		else {
+			prevBtn.disabled = false;
+			nextBtn.disabled = false;
+		}
+
+		currentTable = index;
+	}
 
 	function addElemToSelect(value) {
 		var x = document.getElementById("datesSelector");
@@ -11,17 +50,8 @@
 		selectedCount.push(0);
 	}
 
-	document.getElementById("datesSelector").addEventListener("change", (e) => {
-		var selIndex = e.target.selectedIndex;
-		currentTable = selIndex;
-		for (var i = 0; i < e.target.length; i++) {
-			var str = "tableCours" + i;
-			if (i == selIndex) 
-			document.getElementById(str).style.display = null;
-			else
-			document.getElementById(str).style.display = "none";
-		}
-	});
+	document.getElementById("datesSelector").addEventListener("change", (e) => 
+		changeTable(e.target.selectedIndex));
 
 
 	function createTable(data) {
@@ -69,7 +99,7 @@
 				table.style.display = "none";
 			
 			drawTable.buildRows(table);
-	
+			
 			addElemToSelect(leDate);
 			document.getElementById("tblCoursHolder").appendChild(table);
 		}	
@@ -162,7 +192,8 @@
 
 
 	var query = ["SELECT * FROM param",
-		"SELECT cours.bloc, cours.intitule, cours.type, duree.debut, duree.fin, cours.finalite, duree.categorie, jours.jour, horraire.idHorraire \
+		"SELECT cours.bloc, cours.intitule, cours.type, SUBSTRING(duree.debut, 1, 5) AS debut, \
+		SUBSTRING(duree.fin, 1, 5) AS fin, cours.finalite, duree.categorie, jours.jour, horraire.idHorraire \
 	FROM cours, horraire, duree, jours \
 	WHERE horraire.idCours = cours.id \
 	AND horraire.idDuree = duree.id \

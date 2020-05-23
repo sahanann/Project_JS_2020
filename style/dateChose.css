@@ -7,6 +7,43 @@
     transition: all 200ms linear;
 }
 
+.dateBtnHolder {
+    display: none;
+    position: absolute;
+    top: 7px;
+    right: 0;
+    user-select: none;
+}
+
+.dateBtnHolder button {
+    height: 34px;
+    width: 34px;
+    border: none;
+    outline: none;
+    border-radius: 17px;
+    background-color: rgb(255, 37, 91);
+    margin-left: 0px;
+    margin-right: 10px;
+    padding-top: 2px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: all 140ms linear;
+}
+
+.dateBtnHolder button:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.6);
+    background-color: rgb(245, 13, 71);
+}
+
+.dateBtnHolder button:active {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+    background-color: rgb(211, 31, 76);
+}
+
+.dateBtnHolder button:disabled {
+    box-shadow: 0 2px 3px rgba(0, 0, 0, 0.2);
+    background-color: rgb(255, 161, 185);
+    cursor: not-allowed;
+}
 
 
 #submitBtn {

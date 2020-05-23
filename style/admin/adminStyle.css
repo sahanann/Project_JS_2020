@@ -3,11 +3,11 @@
 :root {
     --title-bar-color: rgb(235, 49, 95);
     --primary-accent-color: rgb(252, 49, 83);
-    --second-title-color: rgb(255, 181, 193);
+    --second-title-color: rgb(255, 208, 215);
     --main-button-color: rgb(253, 39, 86);
     --main-button-hover: rgb(253, 65, 96);
     --main-button-active: rgb(226, 17, 52);
-    --sec-button-color: rgb(253, 84, 112);
+    --sec-button-color: rgb(255, 122, 144);
     --sec-button-hover: rgb(255, 57, 90);
     --sec-button-active: rgb(255, 41, 76);
   }

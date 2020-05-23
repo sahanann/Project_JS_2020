@@ -56,53 +56,6 @@
         }
     
         modifStyleOnClick("none", "block", "1000px", choixCours, ".formPanel", checkUserInfo, formPanelOnClick);
-    
-        
-        document.getElementById("submitBtn").addEventListener("click", () => {
-            
-            var selectedValues = [];
-    
-            for(var i = 1; i <= 4; i++) {
-                var className = `.tblCoursG${i}Selected`;
-                document.querySelectorAll(className).forEach(element => selectedValues.push(element.lastChild.innerHTML));
-            }
-    
-            var queryWhere = ``;
-            for (var i = 0; i < selectedValues.length; i++) {
-                queryWhere += ` horraire.idHorraire = ${selectedValues[i]}`
-                if (i != selectedValues.length - 1)
-                    queryWhere += ` OR`;
-            }
-    
-            var query = 
-            [`SELECT id, nbrPlaces FROM typecours`,
-            `SELECT horraire.idHorraire , cours.intitule, horraire.nbrPlaceOccuper, cours.type
-            FROM horraire LEFT JOIN cours ON (horraire.idCours = cours.id)
-            WHERE ${queryWhere}`];
-
-            var typeCours;
-    
-            
-            server.getData(query, [ (data) => {typeCours = data;},
-                (data) => {
-                var emptyCoursList = [];
-                
-                for (var i = 0; i < data.length; i++) 
-                    if(data[i]["nbrPlaceOccuper"] == typeCours[data[i]["type"]]["nbrPlaces"])
-                        emptyCoursList.push(data[i]["intitule"]);
-                    
-                
-                if (emptyCoursList === undefined || emptyCoursList.length == 0) 
-                    insertUser(userData, data, () => sendEmail(userData["emialInput"]));
-                else {
-                    messageModal(emptyCoursList);
-                    // alert(`Pas de places pour le(s) cours : ${emptyCoursList}`);
-                }
-                    
-    
-            }]);
-    
-        });
     }
 
     
@@ -151,6 +104,7 @@
         document.querySelector(".custom-select").style.display = tableDisplay;
         document.querySelectorAll(".choseDateHolder").forEach(item => {item.style.maxWidth = size;});
         document.getElementById("submitBtn").style.display = tableDisplay;
+        document.querySelector(".dateBtnHolder").style.display = tableDisplay;
 
         if (tableDisplay != "none") {
             setTimeout(() => document.getElementById("tableMsgBox").style.display = tableDisplay, 500);
@@ -174,6 +128,53 @@
 
 
     
+
+
+    document.getElementById("submitBtn").addEventListener("click", () => {
+            
+        var selectedValues = [];
+
+        for(var i = 1; i <= 4; i++) {
+            var className = `.tblCoursG${i}Selected`;
+            document.querySelectorAll(className).forEach(element => selectedValues.push(element.lastChild.innerHTML));
+        }
+
+        var queryWhere = ``;
+        for (var i = 0; i < selectedValues.length; i++) {
+            queryWhere += ` horraire.idHorraire = ${selectedValues[i]}`
+            if (i != selectedValues.length - 1)
+                queryWhere += ` OR`;
+        }
+
+        var query = 
+        [`SELECT id, nbrPlaces FROM typecours`,
+        `SELECT horraire.idHorraire , cours.intitule, horraire.nbrPlaceOccuper, cours.type
+        FROM horraire LEFT JOIN cours ON (horraire.idCours = cours.id)
+        WHERE ${queryWhere}`];
+
+        var typeCours;
+
+        
+        server.getData(query, [ (data) => {typeCours = data;},
+            (data) => {
+            var emptyCoursList = [];
+            
+            for (var i = 0; i < data.length; i++) 
+                if(data[i]["nbrPlaceOccuper"] == typeCours[data[i]["type"]]["nbrPlaces"])
+                    emptyCoursList.push(data[i]["intitule"]);
+                
+            
+            if (emptyCoursList === undefined || emptyCoursList.length == 0) 
+                insertUser(userData, data, () => sendEmail(userData["emialInput"]));
+            else {
+                messageModal(emptyCoursList);
+                // alert(`Pas de places pour le(s) cours : ${emptyCoursList}`);
+            }
+                
+
+        }]);
+
+    });
 
     
 

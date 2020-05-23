@@ -11,12 +11,13 @@ table, th, td {
     border: 1px solid rgb(235, 235, 235);
     border-collapse: collapse;
     padding: 4px;
-    /* text-align: left; */
-    border-collapse: collapse;
     -webkit-user-select: none;
     -ms-user-select: none; 
     user-select: none;
 }
+
+
+
 
 table {
     width: 100%;

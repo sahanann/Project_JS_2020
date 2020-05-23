@@ -248,7 +248,8 @@ var drawTable = {
              "xmlns:w='urn:schemas-microsoft-com:office:word' "+
              "xmlns='http://www.w3.org/TR/REC-html40'>"+
              "<head><meta charset='utf-8'><title>Export HTML to Word Document with JavaScript</title> \
-             <style> body {background-color: powderblue; font-family: sans-serif;}</style> </head><body>";
+             <style> body {background-color: powderblue; font-family: sans-serif;} \
+             table, th, td { border: 1px solid rgb(235, 235, 235); border-collapse: collapse; padding: 2px;} </style> </head><body>";
         var footer = "</body></html>";
         var sourceHTML = header+document.getElementById(source).innerHTML+footer;
         
