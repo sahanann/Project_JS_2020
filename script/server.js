@@ -18,13 +18,13 @@ var server = {
                     var response = xhr.responseText;
         
                     if (response == "ERRSQL")
-                        // alert("error get");
-                        window.open(`message.html?code=0`, `_self`);
+                        alert("error get");
+                        // window.open(`message.html?code=0`, `_self`);
                     else if (response == "NOTHING") 
                         callBacks[i](false);
                     else if (response == "ERRQUERY")
-                        // alert("error get");
-                        window.open(`message.html?code=0`, `_self`);
+                        alert("error get");
+                        // window.open(`message.html?code=0`, `_self`);
                     else 
                         callBacks[i](JSON.parse(xhr.responseText));
     
@@ -40,14 +40,16 @@ var server = {
     setData: (queryList, callBack) => {
         xhr = server.getXMLHttpRequest();
 
-        console.log(queryList);
+        
     
         (function loop(i, length) {
             if (i>= length) {
                 callBack();
                 return;
             }
-                
+            
+            console.log(queryList[i]);
+
             var url = "php/insertData.php?Query="+queryList[i];
             xhr.open("GET", url, true);
     
@@ -56,8 +58,8 @@ var server = {
                     var response = xhr.responseText;
         
                     if (response == "NOPE") {
-                        // alert("error set");
-                        window.open(`message.html?code=0`, `_self`);
+                        alert("error set");
+                        // window.open(`message.html?code=0`, `_self`);
                         return;
                     }
     

@@ -186,6 +186,8 @@
 
 	callbacks[1] = (data) => createTable(data);
 
+	callbacks[2] = (data) => lastIdNumbers.userId = data[0]["id"];
+
 	
 
 
@@ -197,7 +199,8 @@
 	WHERE horraire.idCours = cours.id \
 	AND horraire.idDuree = duree.id \
 	AND horraire.idJour = jours.id \
-	ORDER BY jours.jour, duree.debut;"];
+	ORDER BY jours.jour, duree.debut;",
+	"SELECT * FROM user ORDER BY id DESC LIMIT 1"];
 
 
 

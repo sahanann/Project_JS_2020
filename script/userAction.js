@@ -146,7 +146,7 @@
                         emptyCoursList[i] = `<p>${data[i]["intitule"]}</p>`;                
                 
                 if (emptyCoursList === undefined || emptyCoursList.length == 0) 
-                    insertUser(userValues, data, () => sendEmail(userData["emialInput"]));
+                    insertUser(userValues, data, () => sendEmail(userValues["emialInput"]));
                 else {
                     messageModal("Pas de places pour le(s) cours suivant(s)", emptyCoursList);
                 }

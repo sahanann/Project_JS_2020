@@ -274,8 +274,6 @@ var userObj = {
 
 function insertUser(userData, choixData, callBack) {
     
-    console.log(userData);
-    return;
     lastIdNumbers.userId++;
     var idUser = lastIdNumbers.userId;
 
