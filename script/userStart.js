@@ -1,8 +1,7 @@
-(function () {
-	// var minChoice = 2;
+(() => {
+
 	var selectedCount = [];
 	var currentTable = 0;
-	// var datesList = [];
 
 	document.getElementById("prevTableBtn").addEventListener("click", (e) => {
 		document.getElementById("datesSelector").selectedIndex = currentTable - 1;
@@ -69,7 +68,8 @@
             }
             else
                 return true;
-        }
+		}
+		
 		drawTable.headers = ["bloc", "intitule", "type", "debut", "fin", "finalite"];
 		drawTable.buildCustomCell = (tr) => {
 			var strId = drawTable.data[drawTable.index]["idHorraire"];
@@ -109,9 +109,8 @@
 	function tableRowOnClick(e) {
 		var row = e.target;
 	
-		while (row.className.indexOf('tableRowStyle') == -1) {
+		while (row.className.indexOf('tableRowStyle') == -1) 
 			row = row.parentNode;
-		}
 	
 		var tableNum = row.classList[2];
 		var groupe = row.classList[1];

@@ -1,4 +1,4 @@
-(function () {
+(() => {
 
     var userFieldVerif = {
         nomInput: champsVerif.nom,
@@ -10,26 +10,23 @@
         item.addEventListener("keyup", () => userFieldVerif[item.id](item));
     });
 
-
-    var choixCoursElem = document.getElementById("choixCoursBtn");
-    choixCoursElem.addEventListener("click", checkUserInfo);
-
+    document.getElementById("choixCoursBtn").addEventListener("click", checkUserInfo);
     
-
+    var userValues = {};
     function checkUserInfo (e) {
-        var objValues = {};
+        
         var checkError = true;
 
         document.querySelectorAll(".ftextInput").forEach(item => {
             console.log(`check = ${checkError}`);
             if (userFieldVerif[item.id](item) == false)
                 checkError = userFieldVerif[item.id](item);
-            objValues[item.id] = item.value;
+            userValues[item.id] = item.value;
         });
 
         console.log(`check = ${checkError}`);
         if (checkError != false) {
-            objValues["etablInput"] = document.getElementById("etablInput").value;
+            userValues["etablInput"] = document.getElementById("etablInput").value;
     
             var cdChoice = "";
             var finalites = ["I", "R", "G"];
@@ -40,47 +37,40 @@
                     cdChoice = cdChoice + "-";
     
             });
-            objValues["cbFinalite"] = cdChoice;
+            userValues["cbFinalite"] = cdChoice;
     
-            afficheTableCours(e, objValues);
+            afficheTableCours(e);
         }
     }
 
 
-    function afficheTableCours(e, userData) { 
-
+    function afficheTableCours(e) {
         var choixCours = e.target;
     
-        while (choixCours.className.indexOf('choixCours') == -1) { // Cette boucle permet de remonter jusqu'à la zone de drop parente
+        while (choixCours.className.indexOf('choixCours') == -1)
             choixCours = choixCours.parentNode;
-        }
     
         modifStyleOnClick("none", "block", "1000px", choixCours, ".formPanel", checkUserInfo, formPanelOnClick);
     }
 
     
 
-    function messageModal(cours) {
+    function messageModal(title, content) {
+        document.getElementById("msgModalTitle").innerHTML = title;
         var modal = document.querySelector(".msgModalBox");
 
         modal.style.display = "block";
 
         var modalBody = document.querySelector(".msgModal-body");
         modalBody.innerHTML = "";
-        for (var i = 0; i < cours.length; i++) {
-            var p = document.createElement("p");
-            p.innerHTML = cours[i];
-            modalBody.appendChild(p);
-        }
+        for (var i = 0; i < content.length; i++) 
+            modalBody.innerHTML += content[i];
 
-        document.querySelector(".closeMsgBox").addEventListener("click", () => {
-            modal.style.display = "none";
-        });
+        document.querySelector(".closeMsgBox").addEventListener("click", () => modal.style.display = "none");
 
-        window.onclick = function(event) {
-            if (event.target == modal) {
+        window.onclick = (event) => {
+            if (event.target == modal)
                 modal.style.display = "none";
-            }
         }
     }
 
@@ -88,12 +78,10 @@
     
         var formPanel = e.target;
     
-        while (formPanel.className.indexOf('formPanel') == -1) {
+        while (formPanel.className.indexOf('formPanel') == -1) 
             formPanel = formPanel.parentNode;
-        }
         
         modifStyleOnClick("block", "none", "300px", formPanel, ".choixCours", formPanelOnClick, checkUserInfo);
-    
     }
 
 
@@ -125,11 +113,6 @@
     }
 
 
-
-
-    
-
-
     document.getElementById("submitBtn").addEventListener("click", () => {
             
         var selectedValues = [];
@@ -153,31 +136,37 @@
         WHERE ${queryWhere}`];
 
         var typeCours;
-
         
         server.getData(query, [ (data) => {typeCours = data;},
             (data) => {
-            var emptyCoursList = [];
-            
-            for (var i = 0; i < data.length; i++) 
-                if(data[i]["nbrPlaceOccuper"] == typeCours[data[i]["type"]]["nbrPlaces"])
-                    emptyCoursList.push(data[i]["intitule"]);
+                var emptyCoursList = [];
                 
-            
-            if (emptyCoursList === undefined || emptyCoursList.length == 0) 
-                insertUser(userData, data, () => sendEmail(userData["emialInput"]));
-            else {
-                messageModal(emptyCoursList);
-                // alert(`Pas de places pour le(s) cours : ${emptyCoursList}`);
-            }
+                for (var i = 0; i < data.length; i++) 
+                    if(data[i]["nbrPlaceOccuper"] == typeCours[data[i]["type"]]["nbrPlaces"])
+                        emptyCoursList[i] = `<p>${data[i]["intitule"]}</p>`;                
                 
+                if (emptyCoursList === undefined || emptyCoursList.length == 0) 
+                    insertUser(userValues, data, () => sendEmail(userData["emialInput"]));
+                else {
+                    messageModal("Pas de places pour le(s) cours suivant(s)", emptyCoursList);
+                }
+                    
 
-        }]);
+            }]);
 
     });
 
-    
 
+    document.getElementById("helpTableBtn").addEventListener("click", () => {
+        messageModal("Aide", [
+            "<h4>Chaque couleur dans le tableau represente differentes plages horraire:</h4>",
+            "<p style='margin-left:40px'>Jaune : 8h20 / 8h50 – 10h20</p>",
+            "<p style='margin-left:40px'>Bleu  : 10h30 – 12h30 / 13h</p>",
+            "<p style='margin-left:40px'>Rouge : 13h / 13h30 – 15h / 15h30</p>",
+            "<p style='margin-left:40px'>Vert  : 15h / 15h30 – 16h / 17h30</p>",
+            "<h5>Vous puvez choisir qu'un cours par plages</h5>"
+        ]);
+    });
     
 })();
 

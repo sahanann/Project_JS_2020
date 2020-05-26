@@ -45,6 +45,17 @@
     cursor: not-allowed;
 }
 
+#helpTableBtn {
+    background-color: rgb(250, 211, 39);
+    font-weight: 700;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.6);
+}
+
+#helpTableBtn:hover {
+    background-color: rgb(255, 186, 37);
+}
+
 
 #submitBtn {
     display: none;
