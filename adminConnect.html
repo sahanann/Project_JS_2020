@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connect Admin</title>
+
+    <link rel="stylesheet" href="style/admin/adminStyle.css">
+    <link rel="stylesheet" href="style/formPanel.css">
+</head>
+<body>
+    <div class="tabs">
+        <img src="style/images/logo2.png" alt="">
+        <h1>Haute Ecole de la Province de Liège</h1>
+        <div id="titleHolder">
+            
+            
+        </div>
+        <h2>Choix des cours journée immersion HEPL</h2>
+    </div>
+
+    <div class="formBoxHolder">
+        <div class="AjoutCoursBox" style="margin-top: 200px;">
+
+            <div class="fieldGroup">
+                <label for="usernameInput" class="filedName">Nom d'utilisateur</label>
+                <input type="text" placeholder="Entrez le nom d'utilisateur" id="usernameInput">
+                <span id="usernameInputErr"></span>
+            </div>
+    
+            <div class="fieldGroup">
+                <label for="passwordInput" class="filedName">Mot de passe</label>
+                <input type="password" placeholder="Entrez le mot de passe" id="passwordInput">
+                <span id="passwordInputErr"></span>
+            </div>
+            
+        </div>
+
+        <button id="confirmBtn" class="myActionButton">Confirmer</button>
+    </div>
+
+    
+
+    <script src="script/fctUtile.js"></script>
+    <script src="script/server.js"></script>
+    <script src="script/adminConnect.js"></script>
+</body>
+</html>

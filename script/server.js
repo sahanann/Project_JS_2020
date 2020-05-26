@@ -18,13 +18,13 @@ var server = {
                     var response = xhr.responseText;
         
                     if (response == "ERRSQL")
-                        alert("error get");
-                        // window.open(`message.html?code=0`, `_self`);
+                        // alert("error get");
+                        window.open(`message.html?code=0`, `_self`);
                     else if (response == "NOTHING") 
                         callBacks[i](false);
                     else if (response == "ERRQUERY")
-                        alert("error get");
-                        // window.open(`message.html?code=0`, `_self`);
+                        // alert("error get");
+                        window.open(`message.html?code=0`, `_self`);
                     else 
                         callBacks[i](JSON.parse(xhr.responseText));
     
@@ -58,8 +58,8 @@ var server = {
                     var response = xhr.responseText;
         
                     if (response == "NOPE") {
-                        alert("error set");
-                        // window.open(`message.html?code=0`, `_self`);
+                        // alert("error set");
+                        window.open(`message.html?code=0`, `_self`);
                         return;
                     }
     

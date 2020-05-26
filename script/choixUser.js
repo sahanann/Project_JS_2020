@@ -5,13 +5,15 @@
     if (email) {
         
         var queryEmail = 
-        [`SELECT id \
+        [`SELECT id, nom, prenom \
         FROM user \
         WHERE email = "${email}"`]
 
         
         server.getData(queryEmail, [(data) => {
             if (data != false) {
+                document.getElementById("confBoxMsgTitle").innerHTML = `${data[0]["nom"].toUpperCase()} ${data[0]["prenom"]}`;
+
                 var idUser = data[0]["id"];
                 var query = 
                 [`SELECT jours.jour, duree.debut, duree.fin, cours.bloc, cours.intitule, cours.type, cours.finalite
