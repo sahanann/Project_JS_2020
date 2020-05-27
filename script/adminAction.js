@@ -61,16 +61,16 @@
         else
             document.getElementById("cbFinaliteErr").innerText = "";
 
-        var typeCours = document.getElementById("typeCoursSelect");
+        var typeCours = document.getElementById("typeCoursSelect").selectedIndex + 1;
         var bloc = document.getElementById("groupeSelect").selectedIndex + 1;
-        var nbPlaces = typeCours.options[typeCours.selectedIndex].value;
-        console.log(`nbrPlace = ${nbPlaces}`);
+        // var nbPlaces = typeCours.options[typeCours.selectedIndex].value;
+        // console.log(`nbrPlace = ${nbPlaces}`);
 
         if (check != false) {
             lastIdNumbers.coursId++;
             var nomCoursValue = nomCours.value;
-            var query = [`INSERT INTO cours (id, bloc, intitule, type, finalite, idProf, nbrPlaces) 
-                        VALUES (${lastIdNumbers.coursId}, '${bloc}', '${nomCours.value}', '${nbPlaces}', '${cdChoice}', '${prof}', '${nbPlaces}')`];
+            var query = [`INSERT INTO cours (id, bloc, intitule, type, finalite, idProf) 
+                        VALUES (${lastIdNumbers.coursId}, '${bloc}', '${nomCours.value}', '${typeCours}', '${cdChoice}', '${prof}')`];
             server.setData(query, () => {
                 var select = document.getElementById("nomCoursSelect");
                 addOptions(select, lastIdNumbers.coursId, nomCoursValue);
@@ -103,7 +103,7 @@
             server.setData(query, () => {
                 var select = document.getElementById("nomProfSelect");
                 addOptions(select, lastIdNumbers.profId, `${nom} ${prenom}`);
-                callActionMsgBox("2-actionMsgBox", "Le professeur a été ajouter");
+                callActionMsgBox("2-actionMsgBox", "Le professeur a été ajouté");
             });
 
             nomProf.value = "";
@@ -119,7 +119,7 @@
         var coursSelect = document.getElementById("nomCoursSelect");
         var idCours = coursSelect.options[coursSelect.selectedIndex].value;
         if (idCours == 0) {
-            document.getElementById("nomCoursSelectErr").innerText = "*Choissisez un cour";
+            document.getElementById("nomCoursSelectErr").innerText = "*Choisissez un cours";
             check = false;
         }
         else 
@@ -135,7 +135,7 @@
             var query = [`INSERT INTO horraire (idHorraire, idCours, idDuree, idJour) 
                             VALUES (NULL, '${idCours}', '${idDuree}', '${idJour}')`];
 
-            server.setData(query, () => {callActionMsgBox("3-actionMsgBox", "Horraire a été ajouté");});
+            server.setData(query, () => {callActionMsgBox("3-actionMsgBox", "Horaire a été ajouté");});
         }
 
     });
@@ -275,6 +275,8 @@
                     drawTable.btnPlanning(buttonHolder, `${userId}-BtnPlan`);
 
                     tableHolder.appendChild(buttonHolder);
+
+                    callActionMsgBox("5-actionMsgBox", "L'étudiant a été ajouté");
                 });
             }]);
 

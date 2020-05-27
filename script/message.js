@@ -14,14 +14,14 @@
     }
 
     errorAction["1"] = () => {
-        titleElem.innerHTML = "Inscreption avec succès";
-        msgElem.innerHTML = "Confirmation est envoyer a votre adresse";
+        titleElem.innerHTML = "Inscription avec succès";
+        msgElem.innerHTML = "Une confirmation est envoyée à votre adresse";
         imgBox.setAttribute("class", "msgImageSuccess");
     }
 
     errorAction["2"] = () => {
         titleElem.innerHTML = "Erreur";
-        msgElem.innerHTML = "La date d'inscription est expiere";
+        msgElem.innerHTML = "La date d'inscription est expirée";
         imgBox.setAttribute("class", "msgImageError");
     }
 

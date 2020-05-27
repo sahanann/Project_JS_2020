@@ -104,13 +104,38 @@ body {
     /* display: inline-block; */
 }
 
-.tabs img {
+.logo {
     position: absolute;
     height: 130px;
     width: 110px;
     left: 10px;
     top: 10px;
     opacity: 0.34;
+}
+
+.settingIco {
+    position: absolute;
+    height: 32px;
+    width: 32px;
+    right: 16px;
+    top: 16px;
+    opacity: 0.16;
+}
+
+.settingIco:hover {
+    height: 34px;
+    width: 34px;
+    right: 15px;
+    top: 15px;
+    opacity: 0.5;
+}
+
+.settingIco:active {
+    height: 32px;
+    width: 32px;
+    right: 16px;
+    top: 16px;
+    opacity: 0.8;
 }
 
 .tabs h2 {

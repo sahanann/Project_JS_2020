@@ -93,7 +93,7 @@
         }
         drawTable.headers = ["jour", "debut", "fin", "bloc", "intitule", "type", "finalite"];
 
-        lastIdNumbers.userId = data[0]["id"];
+        lastIdNumbers.userId = parseInt(data[0]["id"]) ;
 
         for (var x = 0; drawTable.index < data.length; x++) {
             var table = tableBase.cloneNode(true);
@@ -101,8 +101,9 @@
             var username = `${data[drawTable.index]["nom"]} ${data[drawTable.index]["prenom"]}`;
             var userId = data[drawTable.index]["id"];
 
-            if (lastIdNumbers.userId < userId)
-                lastIdNumbers.userId = userId;
+            console.log(userId);
+            if (lastIdNumbers.userId < parseInt(userId))
+                lastIdNumbers.userId = parseInt(userId);
 
             table.setAttribute("id", `${userId}-listCoursTable`);
             
@@ -172,6 +173,8 @@
 
         param.jour = `${dateData[0]}-${dateData[1]}-${dateData[2]}`;
         param.minChoix = data[0]["nbChoixMin"];
+
+        console.log(lastIdNumbers);
     }
     
     var queries = ["SELECT id, intitule FROM cours;",

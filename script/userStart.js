@@ -147,7 +147,6 @@
 				for (var i = 0; i < selectedCount.length; i++) 
 					if (selectedCount[i] > 0) {
 						submitBtn.disabled = false;
-						msgBox.style.backgroundColor = 'green';
 						break;
 					}
 					else {

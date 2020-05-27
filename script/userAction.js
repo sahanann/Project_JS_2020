@@ -18,13 +18,12 @@
         var checkError = true;
 
         document.querySelectorAll(".ftextInput").forEach(item => {
-            console.log(`check = ${checkError}`);
             if (userFieldVerif[item.id](item) == false)
                 checkError = userFieldVerif[item.id](item);
             userValues[item.id] = item.value;
         });
 
-        console.log(`check = ${checkError}`);
+
         if (checkError != false) {
             userValues["etablInput"] = document.getElementById("etablInput").value;
     
@@ -142,8 +141,8 @@
                 var emptyCoursList = [];
                 
                 for (var i = 0; i < data.length; i++) 
-                    if(data[i]["nbrPlaceOccuper"] == typeCours[data[i]["type"]]["nbrPlaces"])
-                        emptyCoursList[i] = `<p>${data[i]["intitule"]}</p>`;                
+                    if(data[i]["nbrPlaceOccuper"] == typeCours[parseInt(data[i]["type"]) - 1]["nbrPlaces"])
+                        emptyCoursList[i] = `<p>${data[i]["intitule"]}</p>`;
                 
                 if (emptyCoursList === undefined || emptyCoursList.length == 0) 
                     insertUser(userValues, data, () => sendEmail(userValues["emialInput"]));
@@ -159,14 +158,19 @@
 
     document.getElementById("helpTableBtn").addEventListener("click", () => {
         messageModal("Aide", [
-            "<h4>Chaque couleur dans le tableau represente differentes plages horraire:</h4>",
+            "<h4>Chaque couleur dans le tableau représente differentes plages horaire:</h4>",
             "<p style='margin-left:40px'>Jaune : 8h20 / 8h50 – 10h20</p>",
             "<p style='margin-left:40px'>Bleu  : 10h30 – 12h30 / 13h</p>",
             "<p style='margin-left:40px'>Rouge : 13h / 13h30 – 15h / 15h30</p>",
             "<p style='margin-left:40px'>Vert  : 15h / 15h30 – 16h / 17h30</p>",
-            "<h5>Vous puvez choisir qu'un cours par plages</h5>"
+            "<h5>Vous pouvez choisir qu'un cours par plage</h5>"
         ]);
     });
+
+
+    document.getElementById("adminIconBtn").addEventListener("click", () => {
+        window.open(`adminConnect.html`, `_self`);
+    })
     
 })();
 

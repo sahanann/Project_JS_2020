@@ -7,7 +7,7 @@
 // }
 
 function sendEmail(email) {
-    console.log(email);
+ 
     var url = new URL(window.location.href);
     var dir = url.pathname.substring(0, url.pathname.lastIndexOf('/'));
 
@@ -281,8 +281,7 @@ function insertUser(userData, choixData, callBack) {
         VALUES ("${idUser}", "${userData["nomInput"]}", "${userData["prenomInput"]}", \
         "${userData["emialInput"]}", "${userData["etablInput"]}", "${userData["cbFinalite"]}");`;
     
-    console.log(`id uder = ${idUser}`);
-    console.log(`query user = ${queryInsertUser}`);
+    
 
     var queryValues = ``;
     for (var i = 0; i < choixData.length; i++) {
