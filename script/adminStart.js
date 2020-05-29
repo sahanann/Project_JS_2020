@@ -29,7 +29,9 @@
      * - 2 : ajout des données dans le select de jourSelect
      * - 3 : ajout des données dans le select de heureDebutSelect
      * - 4 : ajout des données des utilisateurs et leurs choix des cours
-     * - 5 : 
+     * - 5 : ajout des nbres de place disponible dans le select et input number
+     * - 6 : ajout des dates d'horaire
+     * - 7 : ajout parametre
     */
     var editSelect = new Array(7);
 
